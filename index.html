@@ -1,0 +1,257 @@
+<!--
+  ====================================================================
+  الصفحة الرئيسية - index.html
+  ====================================================================
+  
+  هذه الصفحة تحتوي على:
+  
+  1. Header (رأس الصفحة):
+     - الشعار واسم الشركة
+     - قائمة التنقل الرئيسية
+     - زر تبديل الوضع الليلي/الفاتح
+     - زر تبديل اللغة (عربي/إنجليزي)
+     - قائمة للهواتف (Hamburger Menu)
+  
+  2. Main Content (محتوى الصفحة):
+     - Hero Section: العنوان الرئيسي والصورة
+     - Why Loft Groomer: نقاط القوة والمميزات
+     - إجابات على الأسئلة الشائعة
+  
+  3. Footer (أسفل الصفحة):
+     - روابط سريعة
+     - معلومات الاتصال
+     - ساعات العمل
+  
+  ملاحظات مهمة:
+  - استخدام data-key لجميع النصوص (للترجمة)
+  - استخدام aria-* لإمكانية الوصول (Accessibility)
+  - RTL (Right-to-Left) للعربية
+  ====================================================================
+-->
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- تحديد نوع المستند والترميز -->
+  <meta charset="utf-8" />
+  
+  <!-- تحسين عرض الصفحة على الأجهزة المختلفة (Mobile Responsive) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- وصف الصفحة (يظهر في نتائج البحث) -->
+  <meta name="description" content="فندق كلاب فاخر مع مرافق آمنة وحزم رعاية متنوعة." />
+  
+  <!-- عنوان الصفحة (يظهر في تبويب المتصفح) -->
+  <title>الرئيسية | Loft Groomer</title>
+  
+  <!-- أيقونة الموقع (تظهر بجانب اسم الموقع في التبويب) -->
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  
+  <!-- ربط ملف التصميم الرئيسي -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- 
+    رابط المساعدة للقارئ الآلي (Accessibility)
+    يسمح بالانتقال المباشر للمحتوى الرئيسي
+    مهم لمن يستخدمون قارئ الشاشة
+  -->
+  <a class="skip-link" href="#content" data-key="skipLink">تخطي إلى المحتوى</a>
+
+  <!-- رأس الصفحة (Header) -->
+  <header>
+    <div class="container">
+      <!-- شريط التنقل الرئيسي (Navigation Bar) -->
+      <nav class="nav" aria-label="التنقل الرئيسي">
+        <!-- الشعار واسم الشركة -->
+        <a class="brand" href="index.html">
+          <img src="assets/img/logo.svg.png" alt="شعار Loft Groomer" />
+          <div class="name">
+            <strong>Loft Groomer</strong>
+            <!-- data-key يربط هذا النص بمفتاح الترجمة -->
+            <span data-key="tagline">فندق ورعاية للكلاب</span>
+          </div>
+        </a>
+
+        <!-- روابط التنقل الرئيسية (مخفية على الهواتف) -->
+        <div class="nav-links">
+          <a href="index.html" aria-current="page" data-key="home">الرئيسية</a>
+          <a href="services.html" data-key="services">المرافق والخدمات</a>
+          <a href="packages.html" data-key="packages">الحزم</a>
+          <a href="prices.html" data-key="prices">الأسعار</a>
+          <a href="story.html" data-key="story">القصة</a>
+          <a href="faq.html" data-key="faq">الأسئلة</a>
+          <a href="contact.html" data-key="contact">الحجز/التواصل</a>
+        </div>
+
+        <!-- الأزرار والميزات (تبديل الوضع، اللغة، القائمة للهواتف) -->
+        <div class="nav-cta">
+          <!-- زر تبديل الوضع الليلي/الفاتح -->
+          <button data-dark-mode-toggle title="تبديل الوضع الليلي/الفاتح">🌙</button>
+          
+          <!-- منتقي اللغة -->
+          <div class="lang-switcher">
+            <button class="lang-btn" data-lang-btn title="تغيير اللغة">
+              <span data-lang-indicator>العربية</span>
+            </button>
+            <!-- قائمة الخيارات (تظهر/تختفي عند الضغط) -->
+            <div class="lang-dropdown" data-lang-dropdown role="menu">
+              <button role="menuitem" data-lang-option="ar" class="active">العربية</button>
+              <button role="menuitem" data-lang-option="en">English</button>
+            </div>
+          </div>
+          
+          <!-- زر القائمة للهواتف (Hamburger Menu) -->
+          <button class="hamburger" data-hamburger data-key="menuLabel" aria-label="فتح القائمة" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- قائمة الهاتف المنزلقة (Mobile Drawer - مخفية افتراضياً) -->
+      <div class="mobile-drawer" data-drawer>
+        <a href="index.html" data-key="home">الرئيسية</a>
+        <a href="services.html" data-key="services">المرافق والخدمات</a>
+        <a href="packages.html" data-key="packages">الحزم</a>
+        <a href="prices.html" data-key="prices">الأسعار</a>
+        <a href="story.html" data-key="story">القصة</a>
+        <a href="faq.html" data-key="faq">الأسئلة</a>
+        <a href="contact.html" data-key="contact">الحجز/التواصل</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- المحتوى الرئيسي -->
+  <main id="content">
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-card">
+        <div class="hero-content">
+          <div class="kicker" data-key="kicker">حجز أسرع • متابعة يومية • بيئة آمنة</div>
+          <h1 data-key="heroTitle">فندق ورعاية للكلاب — إقامة مريحة وخدمات متكاملة</h1>
+          <p class="lead" data-key="heroDesc">
+            هدفنا زيادة الطلب على خدمات الإقامة والرعاية عبر موقع عربي واضح وسهل الاستخدام على الهاتف والكمبيوتر.
+            اختر الحزمة المناسبة، وارسِل طلب الحجز خلال دقائق.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="packages.html" data-key="browsePackages">استعرض الحزم</a>
+            <a class="btn" href="services.html" data-key="viewServices">المرافق والخدمات</a>
+            <a class="btn ghost" href="contact.html#form" data-key="contactUs">تواصل معنا</a>
+          </div>
+          <div class="meta" aria-label="نقاط سريعة">
+            <div class="badge" data-key="badge1">غرف نظيفة ومريحة</div>
+            <div class="badge" data-key="badge2">مراعي خارجية آمنة</div>
+            <div class="badge" data-key="badge3">رعاية بيطرية 24/7</div>
+            <div class="badge" data-key="badge4">تحديثات وصور يومية</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card hero-media" aria-label="صورة تعريفية">
+        <img src="assets/img/hero-dogs.svg.jpg" data-key-alt="hero_img_alt" alt="كلاب سعيدة داخل الفندق" />
+        <div class="cap" data-key="hero_img_cap"> خبرة في رعاية الكلاب تضمن لك راحة البال، ولأليفك إقامة لا تُنسى</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 data-key="whyLoftGroomer">لماذا Loft Groomer؟</h2>
+    <p class="sub" data-key="whyDesc">مزيج من الأمان والراحة والنظافة — مع تجربة سهلة للعميل.</p>
+
+    <div class="grid" role="list">
+      <article class="card" role="listitem">
+        <img class="icon" src="assets/img/facility-room.svg.png" alt="غرف إقامة" />
+        <div class="pad">
+          <h3 data-key="roomTitle">غرف إقامة مريحة</h3>
+          <p data-key="roomDesc">غرف نظيفة ومريحة (مزدوجة/مفردة بحسب التوفر) مع عناية يومية.</p>
+        </div>
+      </article>
+
+      <article class="card" role="listitem">
+        <img class="icon" src="assets/img/facility-yard.svg.png" alt="مراعي خارجية" />
+        <div class="pad">
+          <h3 data-key="yardTitle">مراعي خارجية آمنة</h3>
+          <p data-key="yardDesc">مساحات لعب وحركة في بيئة آمنة ومناسبة لاحتياجات الكلب.</p>
+        </div>
+      </article>
+
+      <article class="card" role="listitem">
+        <img class="icon" src="assets/img/facility-vet.svg.png" alt="رعاية بيطرية" />
+        <div class="pad">
+          <h3 data-key="vetTitle">رعاية بيطرية 24/7</h3>
+          <p data-key="vetDesc">خدمات رعاية بيطرية متاحة على مدار الساعة عند الحاجة.</p>
+        </div>
+      </article>
+    </div>
+
+    <hr class="sep"/>
+
+    <div class="panel two-col">
+      <div>
+        <h3 style="margin-top:0" data-key="whatYouFind">ماذا ستجد في الموقع؟</h3>
+        <ul class="ul">
+          <li data-key="whatFind1">معلومات واضحة عن الشركة والخدمات.</li>
+          <li data-key="whatFind2">تفاصيل الحزم وأسعارها (قابلة للتعديل).</li>
+          <li data-key="whatFind3">نموذج تواصل/حجز لطلب المزيد من المعلومات.</li>
+          <li data-key="whatFind4">تصميم عصري، بسيط، ومتجاوب للهاتف وسطح المكتب.</li>
+          <li data-key="whatFind5">بحث سريع لتصفية الخدمات والحزم.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-top:0" data-key="nextStep">خطوة مقترحة بعد هذا النموذج</h3>
+        <div class="notice">
+          <span data-key="nextStepDesc">هذا الموقع يعمل كواجهة Front-End فقط. لطلب حجوزات حقيقية: اربط النموذج بخدمة (Email/WhatsApp) أو أنشئ Back-End لتخزين الطلبات في قاعدة بيانات.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="margin-bottom:.5rem">
+            <img src="assets/img/logo.svg.png" alt="شعار Loft Groomer" />
+            <div class="name">
+              <strong>Loft Groomer</strong>
+              <span data-key="tagline">فندق ورعاية للكلاب</span>
+            </div>
+          </div>
+          <p class="small" data-key="disclaimer">موقع تعريفي تجريبي — اربط نموذج الحجز بنظامك (WhatsApp/Email/CRM) أو بخادم Backend لاحقاً.</p>
+        </div>
+        <div>
+          <strong data-key="quickLinks">روابط سريعة</strong>
+          <div style="margin-top:.6rem; display:grid; gap:.5rem">
+            <a href="index.html" data-key="home">الرئيسية</a>
+            <a href="services.html" data-key="services">المرافق والخدمات</a>
+            <a href="packages.html" data-key="packages">الحزم</a>
+            <a href="contact.html" data-key="contact">الحجز/التواصل</a>
+          </div>
+        </div>
+        <div>
+          <strong data-key="info">معلومات</strong>
+          <p class="small" style="margin-top:.6rem" data-key="businessHours">ساعات العمل: يومياً</p>
+          <p class="small" data-key="vetSupport">الدعم البيطري: 24/7</p>
+          <p class="small" data-key="copyright">© 2026 Loft Groomer</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" data-toast role="status" aria-live="polite">
+    <strong>تم إرسال طلبك</strong>
+    سنعاود التواصل معك قريباً لتأكيد التفاصيل.
+  </div>
+
+  <script src="assets/js/language-switcher-v5.js"></script>
+  <script src="assets/js/main.js"></script>
+  <!-- Session Management & Authentication -->
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

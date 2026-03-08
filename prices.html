@@ -1,0 +1,728 @@
+﻿<!--
+  ====================================================================
+  ØµÙØ­Ø© Ø§Ù„Ø£Ø³Ø¹Ø§Ø± - prices.html
+  ====================================================================
+  
+  Ø§Ù„ØºØ±Ø¶:
+  Ø¹Ø±Ø¶ Ø¬Ø¯ÙˆÙ„ Ø£Ø³Ø¹Ø§Ø± Ù…ÙØµÙ„ ÙˆØ®ØµÙˆÙ…Ø§Øª Ø§Ù„Ø¥Ù‚Ø§Ù…Ø§Øª Ø§Ù„Ø·ÙˆÙŠÙ„Ø© ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª Ø§Ù„Ø¥Ø¶Ø§ÙÙŠØ©
+  
+  Ø§Ù„Ø¨Ù†ÙŠØ©:
+  1. Ø¬Ø¯ÙˆÙ„ Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ:
+     - Ø§Ø³Ù… Ø§Ù„Ø­Ø²Ù…Ø©
+     - Ø§Ù„Ù…Ù†Ø§Ø³Ø¨ Ù„Ù€ (Ù…Ù† ÙŠØ¬Ø¨ Ø¹Ù„ÙŠÙ‡ Ø§Ø®ØªÙŠØ§Ø± Ù‡Ø°Ù‡ Ø§Ù„Ø­Ø²Ù…Ø©)
+     - Ø§Ù„Ø³Ø¹Ø± Ø§Ù„ÙŠÙˆÙ…ÙŠ
+     - Ù…Ù„Ø§Ø­Ø¸Ø§Øª Ø¥Ø¶Ø§ÙÙŠØ©
+  
+  2. Ù‚Ø³Ù… Ø§Ù„Ø®ØµÙˆÙ…Ø§Øª:
+     - 3-7 Ø£ÙŠØ§Ù…: Ø®ØµÙ… 5%
+     - 8-14 ÙŠÙˆÙ…: Ø®ØµÙ… 10%
+     - 15+ ÙŠÙˆÙ…: Ø®ØµÙ… 15%
+  
+  3. Ø§Ù„Ø®Ø¯Ù…Ø§Øª Ø§Ù„Ø¥Ø¶Ø§ÙÙŠØ© ÙˆØ£Ø³Ø¹Ø§Ø±Ù‡Ø§:
+     - Ø§Ù„ØªÙˆØµÙŠÙ„ (20 Ø¯.Ø§)
+     - Ø§Ù„ØªØµÙÙŠÙ ÙˆØ§Ù„Ø§Ø³ØªØ­Ù…Ø§Ù… (25-40 Ø¯.Ø§)
+     - Ø§Ù„Ø®Ø¯Ù…Ø§Øª Ø§Ù„Ø£Ø®Ø±Ù‰
+  
+  Ø§Ù„Ù‡Ø¯Ù:
+  ØªÙˆÙÙŠØ± Ø´ÙØ§ÙÙŠØ© ÙƒØ§Ù…Ù„Ø© ÙÙŠ Ø§Ù„Ø£Ø³Ø¹Ø§Ø± ÙˆØªØ´Ø¬ÙŠØ¹ Ø§Ù„Ø¥Ù‚Ø§Ù…Ø§Øª Ø§Ù„Ø·ÙˆÙŠÙ„Ø© Ø¨Ø®ØµÙˆÙ…Ø§Øª
+  ====================================================================
+-->
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ø£Ø³Ø¹Ø§Ø± ÙÙ†Ø¯Ù‚ Loft Groomer Ø¨Ø§Ù„ØªÙØµÙŠÙ„ Ù…Ø¹ Ø¬Ø¯Ø§ÙˆÙ„ Ù…ÙØµÙ„Ø© ÙˆØ¹Ø±ÙˆØ¶ Ø®Ø§ØµØ© Ù„Ù„Ø¥Ù‚Ø§Ù…Ø§Øª Ø§Ù„Ø·ÙˆÙŠÙ„Ø©." />
+  <title>Ø§Ù„Ø£Ø³Ø¹Ø§Ø± | Loft Groomer</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Price Page Animations */
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+    }
+
+    .prices-hero {
+      padding: 2.4rem 0;
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .prices-hero h1 {
+      margin-bottom: 0.6rem;
+      animation: slideInUp 0.6s ease-out;
+    }
+
+    .prices-hero .sub {
+      animation: slideInUp 0.6s ease-out 0.1s backwards;
+    }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.6rem;
+      margin: 2rem 0;
+    }
+
+    .price-card {
+      background: linear-gradient(
+        135deg,
+        rgba(124, 58, 237, 0.15),
+        rgba(34, 197, 94, 0.08)
+      );
+      border: 2px solid var(--line);
+      border-radius: var(--radius2);
+      padding: 1.8rem;
+      position: relative;
+      overflow: hidden;
+      animation: scaleIn 0.6s ease-out backwards;
+      transition: all 0.3s ease;
+    }
+
+    .price-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .price-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .price-card:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .price-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+      );
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+
+    .price-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+      transform: translateY(-8px);
+    }
+
+    .price-card .package-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .price-card .badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(124, 58, 237, 0.2);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #d4a5ff;
+      margin-bottom: 1rem;
+    }
+
+    .price-amount {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--accent2);
+      margin: 1rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+    }
+
+    .price-amount .currency {
+      font-size: 1.2rem;
+      color: var(--muted);
+    }
+
+    .price-amount .period {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .price-features {
+      list-style: none;
+      padding: 0;
+      margin: 1.2rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 1rem 0;
+    }
+
+    .price-features li {
+      padding: 0.5rem 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .price-features li::before {
+      content: 'âœ“';
+      color: var(--accent2);
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--radius2);
+      border: 1px solid var(--line);
+      margin: 2rem 0;
+      animation: slideInUp 0.8s ease-out 0.4s backwards;
+    }
+
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .price-table thead {
+      background: linear-gradient(
+        90deg,
+        rgba(124, 58, 237, 0.15),
+        rgba(34, 197, 94, 0.1)
+      );
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .price-table th {
+      padding: 1.2rem;
+      text-align: right;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .price-table td {
+      padding: 1.2rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .price-table tr:hover {
+      background: rgba(124, 58, 237, 0.08);
+    }
+
+    .discount-section {
+      background: linear-gradient(
+        135deg,
+        rgba(34, 197, 94, 0.15),
+        rgba(124, 58, 237, 0.08)
+      );
+      border: 2px solid rgba(34, 197, 94, 0.3);
+      border-radius: var(--radius2);
+      padding: 2rem;
+      margin: 2rem 0;
+      animation: slideInUp 0.8s ease-out 0.5s backwards;
+    }
+
+    .discount-section h3 {
+      color: var(--accent2);
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .discount-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .discount-item:last-child {
+      border-bottom: none;
+    }
+
+    .discount-label {
+      color: var(--muted);
+    }
+
+    .discount-value {
+      font-weight: 800;
+      color: var(--accent2);
+      font-size: 1.1rem;
+    }
+
+    .pricing-notes {
+      background: rgba(124, 58, 237, 0.08);
+      border-right: 4px solid var(--accent);
+      padding: 1.4rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+      animation: slideInUp 0.8s ease-out 0.6s backwards;
+    }
+
+    .pricing-notes h3 {
+      color: var(--accent);
+      margin-top: 0;
+    }
+
+    .pricing-notes ul {
+      margin: 0;
+      padding: 1rem 1.6rem;
+    }
+
+    .pricing-notes li {
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+      margin: 2rem 0;
+    }
+
+    .comparison-item {
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.02)
+      );
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      padding: 1.4rem;
+      animation: scaleIn 0.6s ease-out backwards;
+    }
+
+    .comparison-item:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .comparison-item:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    .comparison-item:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    .comparison-item h4 {
+      color: var(--accent);
+      margin-top: 0;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 0.8rem;
+    }
+
+    .feature-check {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .feature-check.available {
+      color: var(--accent2);
+    }
+
+    .feature-check::before {
+      content: 'â—‹';
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .feature-check.available::before {
+      content: 'âœ“';
+      color: var(--accent2);
+    }
+
+    @media (max-width: 768px) {
+      .price-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-amount {
+        font-size: 1.8rem;
+      }
+
+      .table-wrapper {
+        font-size: 0.85rem;
+      }
+
+      .price-table th,
+      .price-table td {
+        padding: 0.8rem;
+      }
+
+      .discount-section {
+        padding: 1.2rem;
+      }
+    }
+  </style>
+
+  <!-- كلمات مفتاحية لصفحة الأسعار -->
+  <meta name="keywords" content="أسعار خدمات الكلاب، تنظيف احترافي سعر، تدريب كلاب سعر، فندق كلاب أسعار، dog grooming price، pet care pricing" />
+  <meta name="description" content="أسعار خدمات العناية بالكلاب والإقامة الفاخرة - شفافة وعادلة" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="أسعارنا - Loft Groomer" />
+  <meta property="og:description" content="أسعار منافسة وشفافة لخدمات العناية بالكلاب" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://loftgroomer.com/prices.html" />
+  
+  <!-- Schema.org للأسعار -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "PriceSpecification",
+    "priceCurrency": "SAR",
+    "description": "أسعار خدمات رعاية وتنظيف وتدريب الكلاب"
+  }
+  </script></head>
+<body>
+  <a class="skip-link" href="#content" data-key="skipLink">ØªØ®Ø·ÙŠ Ø¥Ù„Ù‰ Ø§Ù„Ù…Ø­ØªÙˆÙ‰</a>
+
+  <header>
+    <div class="container">
+      <nav class="nav" aria-label="Ø§Ù„ØªÙ†Ù‚Ù„ Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ">
+        <a class="brand" href="index.html">
+          <img src="assets/img/logo.svg.png" alt="Ø´Ø¹Ø§Ø± Loft Groomer" />
+          <div class="name">
+            <strong>Loft Groomer</strong>
+            <span data-key="tagline">ÙÙ†Ø¯Ù‚ ÙˆØ±Ø¹Ø§ÙŠØ© Ù„Ù„ÙƒÙ„Ø§Ø¨</span>
+          </div>
+        </a>
+
+        <div class="nav-links">
+          <a href="index.html" data-key="home">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+          <a href="services.html" data-key="services">Ø§Ù„Ù…Ø±Ø§ÙÙ‚ ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª</a>
+          <a href="packages.html" data-key="packages">Ø§Ù„Ø­Ø²Ù…</a>
+          <a href="prices.html" aria-current="page" data-key="prices">Ø§Ù„Ø£Ø³Ø¹Ø§Ø±</a>
+          <a href="story.html" data-key="story">Ø§Ù„Ù‚ØµØ©</a>
+          <a href="faq.html" data-key="faq">Ø§Ù„Ø£Ø³Ø¦Ù„Ø©</a>
+          <a href="contact.html" data-key="contact">Ø§Ù„Ø­Ø¬Ø²/Ø§Ù„ØªÙˆØ§ØµÙ„</a>
+        </div>
+
+        <div class="nav-cta">
+          <button data-dark-mode-toggle title="ØªØ¨Ø¯ÙŠÙ„ Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ù„ÙŠÙ„ÙŠ/Ø§Ù„ÙØ§ØªØ­">ðŸŒ™</button>
+          <div class="lang-switcher">
+            <button class="lang-btn" data-lang-btn title="ØªØºÙŠÙŠØ± Ø§Ù„Ù„ØºØ©">
+              <span data-lang-indicator>Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</span>
+            </button>
+            <div class="lang-dropdown" data-lang-dropdown role="menu">
+              <button role="menuitem" data-lang-option="ar" class="active">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</button>
+              <button role="menuitem" data-lang-option="en">English</button>
+            </div>
+          </div>
+          <button class="hamburger" data-hamburger data-key="menuLabel" aria-label="ÙØªØ­ Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="mobile-drawer" data-drawer>
+        <a href="index.html" data-key="home">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+        <a href="services.html" data-key="services">Ø§Ù„Ù…Ø±Ø§ÙÙ‚ ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª</a>
+        <a href="packages.html" data-key="packages">Ø§Ù„Ø­Ø²Ù…</a>
+        <a href="prices.html" data-key="prices">Ø§Ù„Ø£Ø³Ø¹Ø§Ø±</a>
+        <a href="story.html" data-key="story">Ø§Ù„Ù‚ØµØ©</a>
+        <a href="faq.html" data-key="faq">Ø§Ù„Ø£Ø³Ø¦Ù„Ø©</a>
+        <a href="contact.html" data-key="contact">Ø§Ù„Ø­Ø¬Ø²/Ø§Ù„ØªÙˆØ§ØµÙ„</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="prices-hero">
+      <div class="container">
+        <h1 data-key="pricesPageTitle">Ø£Ø³Ø¹Ø§Ø±Ù†Ø§ Ø§Ù„Ø´ÙØ§ÙØ© ÙˆØ§Ù„Ø¹Ø§Ø¯Ù„Ø©</h1>
+        <p class="sub" data-key="pricesPageDesc">Ø¬ÙˆØ¯Ø© Ø¹Ø§Ù„ÙŠØ© Ø¨Ø£Ø³Ø¹Ø§Ø± ØªÙ†Ø§ÙØ³ÙŠØ©. Ø§Ø®ØªØ± Ø§Ù„Ø­Ø²Ù…Ø© Ø§Ù„Ù…Ù†Ø§Ø³Ø¨Ø© Ø£Ùˆ Ø§Ø·Ù„Ø¨ Ø¹Ø±Ø¶ Ø³Ø¹Ø± Ù…Ø®ØµØµ.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 data-key="pricesCardsTitle">Ø­Ø²Ù…Ù†Ø§ Ø§Ù„Ø«Ù„Ø§Ø« Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</h2>
+        <p class="sub" data-key="pricesCardsDesc">Ø§Ø®ØªØ± Ù…Ù† Ø¨ÙŠÙ† Ø«Ù„Ø§Ø« Ø­Ø²Ù… Ù…ØªÙ…ÙŠØ²Ø©:</p>
+
+        <div class="price-grid">
+          <!-- Premium Package -->
+          <div class="price-card">
+            <span class="badge" data-key="premiumBadge">Ø§Ù„Ø£ÙƒØ«Ø± Ø´Ù‡Ø±Ø©</span>
+            <h3 class="package-name">
+              <span data-key="pricesPremiumTitle">Ø§Ù„Ø­Ø²Ù…Ø© Ø§Ù„Ù…Ù…ÙŠØ²Ø©</span>
+            </h3>
+            <div class="price-amount">
+              <span class="currency">Ø¯.Ø§</span>
+              <span>75</span>
+              <span class="period" data-key="perDay">/Ø§Ù„ÙŠÙˆÙ…</span>
+            </div>
+            <ul class="price-features">
+              <li data-key="pricesFeature1">Ù…Ø´ÙŠ ÙŠÙˆÙ…ÙŠ Ù…Ø±ØªÙŠÙ†</li>
+              <li data-key="pricesFeature2">4 Ø£Ù†Ø´Ø·Ø© ÙŠÙˆÙ…ÙŠØ© Ù…Ø­ÙØ²Ø©</li>
+              <li data-key="pricesFeature3">Ù…Ø³Ø§Ø­Ø© Ù„Ø¹Ø¨ Ø®Ø§ØµØ© ÙˆØ¢Ù…Ù†Ø©</li>
+              <li data-key="pricesFeature4">ØªØ­Ø¯ÙŠØ«Ø§Øª ÙˆØµÙˆØ± ÙŠÙˆÙ…ÙŠØ©</li>
+              <li data-key="pricesFeature5">Ù…ÙƒØ§ÙØ¢Øª ÙˆÙ…Ø¹Ø§Ù…Ù„Ø© Ø®Ø§ØµØ©</li>
+            </ul>
+            <a class="btn primary" href="contact.html#form" data-key="bookNow" style="width: 100%; justify-content: center;">Ø§Ø­Ø¬Ø² Ø§Ù„Ø¢Ù†</a>
+          </div>
+
+          <!-- Classic Package -->
+          <div class="price-card">
+            <span class="badge" data-key="classicBadge">Ø§Ù„Ø£ÙƒØ«Ø± ØªÙˆØ§Ø²Ù†Ø§Ù‹</span>
+            <h3 class="package-name">
+              <span data-key="pricesClassicTitle">Ø§Ù„Ø­Ø²Ù…Ø© Ø§Ù„ÙƒÙ„Ø§Ø³ÙŠÙƒÙŠØ©</span>
+            </h3>
+            <div class="price-amount">
+              <span class="currency">Ø¯.Ø§</span>
+              <span>50</span>
+              <span class="period" data-key="perDay">/Ø§Ù„ÙŠÙˆÙ…</span>
+            </div>
+            <ul class="price-features">
+              <li data-key="pricesFeature6">Ù…Ø´ÙŠ ÙŠÙˆÙ…ÙŠ Ù…Ø±Ø© ÙˆØ§Ø­Ø¯Ø©</li>
+              <li data-key="pricesFeature7">Ù†Ø´Ø§Ø·Ø§Øª Ø£Ø³Ø¨ÙˆØ¹ÙŠØ© Ù…Ù†ØªÙ‚Ø§Ø©</li>
+              <li data-key="pricesFeature8">Ø­Ø¸Ø§Ø¦Ø± Ù„Ø¹Ø¨ Ø¯Ø§Ø®Ù„ÙŠØ© Ø¢Ù…Ù†Ø©</li>
+              <li data-key="pricesFeature9">Ø±Ø¹Ø§ÙŠØ© ÙŠÙˆÙ…ÙŠØ© Ø´Ø§Ù…Ù„Ø©</li>
+              <li data-key="pricesFeature10">Ø¬Ù„Ø³Ø© ØªØµÙÙŠÙ Ø£Ø³Ø¨ÙˆØ¹ÙŠØ©</li>
+            </ul>
+            <a class="btn primary" href="contact.html#form" data-key="bookNow" style="width: 100%; justify-content: center;">Ø§Ø­Ø¬Ø² Ø§Ù„Ø¢Ù†</a>
+          </div>
+
+          <!-- Daily Package -->
+          <div class="price-card">
+            <span class="badge" data-key="dailyBadge">Ù„Ù„Ø²ÙŠØ§Ø±Ø§Øª</span>
+            <h3 class="package-name">
+              <span data-key="pricesDailyTitle">Ø­Ø²Ù…Ø© Ø§Ù„ÙŠÙˆÙ… Ø§Ù„ÙˆØ§Ø­Ø¯</span>
+            </h3>
+            <div class="price-amount">
+              <span class="currency">Ø¯.Ø§</span>
+              <span>30</span>
+              <span class="period" data-key="perDay">/Ø§Ù„ÙŠÙˆÙ…</span>
+            </div>
+            <ul class="price-features">
+              <li data-key="pricesFeature11">Ù…Ø´ÙŠ ÙŠÙˆÙ…ÙŠ Ø¨Ø³ÙŠØ·</li>
+              <li data-key="pricesFeature12">Ù…Ø³Ø§Ø­Ø© Ù„Ø¹Ø¨ Ø®Ø§Ø±Ø¬ÙŠØ©</li>
+              <li data-key="pricesFeature13">Ø±Ø¹Ø§ÙŠØ© Ø£Ø³Ø§Ø³ÙŠØ© ÙˆØ¥Ø´Ø±Ø§Ù</li>
+              <li data-key="pricesFeature14">Ù†Ø´Ø§Ø· ØªØ±ÙÙŠÙ‡ÙŠ ÙˆØ§Ø­Ø¯</li>
+              <li data-key="pricesFeature15">ØªÙ‚Ø±ÙŠØ± Ù†Ù‡Ø§ÙŠØ© Ø§Ù„ÙŠÙˆÙ…</li>
+            </ul>
+            <a class="btn primary" href="contact.html#form" data-key="bookNow" style="width: 100%; justify-content: center;">Ø§Ø­Ø¬Ø² Ø§Ù„Ø¢Ù†</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 data-key="discountsTitle">Ø¹Ø±ÙˆØ¶ ÙˆØ®ØµÙˆÙ…Ø§Øª Ø®Ø§ØµØ©</h2>
+        <div class="discount-section">
+          <h3>ðŸŽ <span data-key="specialDiscounts">Ø®ØµÙˆÙ…Ø§Øª Ø§Ù„Ø¥Ù‚Ø§Ù…Ø§Øª Ø§Ù„Ø·ÙˆÙŠÙ„Ø©</span></h3>
+          <div class="discount-item">
+            <span class="discount-label" data-key="discount3Days">Ø¥Ù‚Ø§Ù…Ø© 3-7 Ø£ÙŠØ§Ù…:</span>
+            <span class="discount-value">5%</span>
+          </div>
+          <div class="discount-item">
+            <span class="discount-label" data-key="discount8Days">Ø¥Ù‚Ø§Ù…Ø© 8-14 ÙŠÙˆÙ…:</span>
+            <span class="discount-value">10%</span>
+          </div>
+          <div class="discount-item">
+            <span class="discount-label" data-key="discount15Days">Ø¥Ù‚Ø§Ù…Ø© 15+ ÙŠÙˆÙ…:</span>
+            <span class="discount-value">15%</span>
+          </div>
+          <div class="discount-item">
+            <span class="discount-label" data-key="discountMultipleDogs">Ø­ÙŠÙˆØ§Ù†Ø§Øª Ø£Ù„ÙŠÙØ© Ø¥Ø¶Ø§ÙÙŠØ© (2+):</span>
+            <span class="discount-value">10%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 data-key="pricingTableTitle">Ø¬Ø¯ÙˆÙ„ Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø§Ù„Ù…ÙØµÙ„</h2>
+        <div class="table-wrapper">
+          <table class="price-table">
+            <thead>
+              <tr>
+                <th data-key="tablePackage">Ø§Ù„Ø­Ø²Ù…Ø©</th>
+                <th data-key="tableMostSuitable">Ø§Ù„Ø£Ù†Ø³Ø¨ Ù„</th>
+                <th data-key="tablePrice">Ø§Ù„Ø³Ø¹Ø±/Ø§Ù„ÙŠÙˆÙ…</th>
+                <th data-key="tableHighlights">Ø§Ù„Ù…Ù…ÙŠØ²Ø§Øª Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</th>
+                <th data-key="tableNotes">Ù…Ù„Ø§Ø­Ø¸Ø§Øª</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color: var(--accent); font-weight: 800;" data-key="pricesPremiumTitle">Ø§Ù„Ù…Ù…ÙŠØ²Ø©</td>
+                <td data-key="premiumForAnimals">Ø£ØµØ­Ø§Ø¨ Ø§Ù„ÙƒÙ„Ø§Ø¨ Ø§Ù„Ø°ÙŠÙ† ÙŠØ±ÙŠØ¯ÙˆÙ† Ø£Ù‚ØµÙ‰ Ø±Ø¹Ø§ÙŠØ©</td>
+                <td style="color: var(--accent2); font-weight: 800;">75 Ø¯.Ø§</td>
+                <td data-key="premiumHighlights">Ù…Ø´ÙŠ 2x + 4 Ø£Ù†Ø´Ø·Ø© + ØµÙˆØ± ÙŠÙˆÙ…ÙŠØ©</td>
+                <td data-key="premiumTableNote">Ù‚Ø¯ ØªØ®ØªÙ„Ù Ø­Ø³Ø¨ Ø­Ø¬Ù… Ø§Ù„ÙƒÙ„Ø¨</td>
+              </tr>
+              <tr>
+                <td style="color: var(--accent); font-weight: 800;" data-key="pricesClassicTitle">Ø§Ù„ÙƒÙ„Ø§Ø³ÙŠÙƒÙŠØ©</td>
+                <td data-key="classicForAnimals">Ø¥Ù‚Ø§Ù…Ø§Øª Ù…ØªÙˆØ³Ø·Ø© Ø§Ù„Ø£Ø¬Ù„ Ù…Ø¹ Ø±Ø¹Ø§ÙŠØ© Ø¬ÙŠØ¯Ø©</td>
+                <td style="color: var(--accent2); font-weight: 800;">50 Ø¯.Ø§</td>
+                <td data-key="classicHighlights">Ù…Ø´ÙŠ 1x + Ø£Ù†Ø´Ø·Ø© Ø£Ø³Ø¨ÙˆØ¹ÙŠØ©</td>
+                <td data-key="classicTableNote">Ø§Ù„Ø®ÙŠØ§Ø± Ø§Ù„Ø£ÙƒØ«Ø± Ø·Ù„Ø¨Ø§Ù‹</td>
+              </tr>
+              <tr>
+                <td style="color: var(--accent); font-weight: 800;" data-key="pricesDailyTitle">Ø§Ù„ÙŠÙˆÙ…ÙŠ</td>
+                <td data-key="dailyForAnimals">Ø§Ù„Ø²ÙŠØ§Ø±Ø§Øª Ø§Ù„Ø¹Ø§Ø¨Ø±Ø© ÙˆØ§Ù„ÙŠÙˆÙ…ÙŠØ©</td>
+                <td style="color: var(--accent2); font-weight: 800;">30 Ø¯.Ø§</td>
+                <td data-key="dailyHighlights">Ø±Ø¹Ø§ÙŠØ© Ø£Ø³Ø§Ø³ÙŠØ© + Ù…Ø´ÙŠ + Ù„Ø¹Ø¨</td>
+                <td data-key="dailyTableNote">Ù„Ù„Ø§Ø³ØªØ¶Ø§ÙØ© Ø®Ù„Ø§Ù„ Ø§Ù„ÙŠÙˆÙ…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 data-key="additionalServicesTitle">Ø®Ø¯Ù…Ø§Øª Ø¥Ø¶Ø§ÙÙŠØ©</h2>
+        <div class="comparison-grid">
+          <div class="comparison-item">
+            <h4 data-key="transportService">Ø®Ø¯Ù…Ø© Ø§Ù„ØªÙˆØµÙŠÙ„</h4>
+            <div class="feature-check available">
+              <span data-key="transportFromTo">Ù…Ù† ÙˆØ¥Ù„Ù‰ Ù…Ù‚Ø± Ø§Ù„ÙÙ†Ø¯Ù‚</span>
+            </div>
+            <div style="padding: 0.8rem 0; font-size: 1.1rem; color: var(--accent2); font-weight: 800;">
+              20 Ø¯.Ø§ <span style="font-size: 0.8rem; color: var(--muted); font-weight: 500;">/Ø§Ù„Ø±Ø­Ù„Ø© Ø§Ù„ÙˆØ§Ø­Ø¯Ø©</span>
+            </div>
+          </div>
+
+          <div class="comparison-item">
+            <h4 data-key="groomingService">Ø®Ø¯Ù…Ø© Ø§Ù„ØªØµÙÙŠÙ ÙˆØ§Ù„Ø§Ø³ØªØ­Ù…Ø§Ù…</h4>
+            <div class="feature-check available">
+              <span data-key="groomingDesc">Ø­Ø³Ø¨ Ù†ÙˆØ¹ ÙˆØ­Ø¬Ù… Ø§Ù„ÙƒÙ„Ø¨</span>
+            </div>
+            <div style="padding: 0.8rem 0; font-size: 1.1rem; color: var(--accent2); font-weight: 800;">
+              25-40 Ø¯.Ø§ <span style="font-size: 0.8rem; color: var(--muted); font-weight: 500;">/Ø§Ù„Ø¬Ù„Ø³Ø©</span>
+            </div>
+          </div>
+
+          <div class="comparison-item">
+            <h4 data-key="vetService">Ø§Ø³ØªØ´Ø§Ø±Ø© Ø¨ÙŠØ·Ø±ÙŠØ©</h4>
+            <div class="feature-check available">
+              <span data-key="vetDesc">Ø±Ø¹Ø§ÙŠØ© Ø¨ÙŠØ·Ø±ÙŠØ© Ø·Ø§Ø±Ø¦Ø© 24/7</span>
+            </div>
+            <div style="padding: 0.8rem 0; font-size: 1.1rem; color: var(--accent2); font-weight: 800;">
+              Ù…ØªØºÙŠØ±Ø© <span style="font-size: 0.8rem; color: var(--muted); font-weight: 500;">/Ø­Ø³Ø¨ Ø§Ù„Ø®Ø¯Ù…Ø©</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="pricing-notes">
+          <h3> ðŸ“‹ <span data-key="importantNotes">Ù…Ù„Ø§Ø­Ø¸Ø§Øª Ù…Ù‡Ù…Ø©</span></h3>
+          <ul>
+            <li data-key="note1">Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø£Ø³Ø¹Ø§Ø± Ø£Ø¹Ù„Ø§Ù‡ Ù‚Ø§Ø¨Ù„Ø© Ù„Ù„ØªÙØ§ÙˆØ¶ Ø­Ø³Ø¨ Ø§Ù„Ø¸Ø±ÙˆÙ ÙˆØ§Ù„Ø¥Ù‚Ø§Ù…Ø§Øª Ø§Ù„Ø·ÙˆÙŠÙ„Ø©.</li>
+            <li data-key="note2">ØªØªÙˆÙØ± Ø®ØµÙˆÙ…Ø§Øª Ø®Ø§ØµØ© Ù„Ù„Ø¹Ù…Ù„Ø§Ø¡ Ø§Ù„Ø¯Ø§Ø¦Ù…ÙŠÙ† ÙˆØ§Ù„Ø­Ø¬ÙˆØ²Ø§Øª Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹ÙŠØ©.</li>
+            <li data-key="note3">Ø§Ù„Ø±Ø¹Ø§ÙŠØ© Ø§Ù„Ø¨ÙŠØ·Ø±ÙŠØ© Ø§Ù„Ø·Ø§Ø±Ø¦Ø© Ù…ØªØ§Ø­Ø© Ø¨Ø¯ÙˆÙ† ØªÙƒØ§Ù„ÙŠÙ Ø¥Ø¶Ø§ÙÙŠØ© Ù„Ù„Ø­Ø§Ù„Ø§Øª Ø§Ù„Ø­Ø±Ø¬Ø©.</li>
+            <li data-key="note4">ÙŠÙ…ÙƒÙ† ØªØ®ØµÙŠØµ Ø§Ù„Ø­Ø²Ù… Ø­Ø³Ø¨ Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª ÙƒÙ„Ø¨Ùƒ Ø§Ù„Ø®Ø§ØµØ©.</li>
+            <li data-key="note5">ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§ Ù„Ù„Ø­ØµÙˆÙ„ Ø¹Ù„Ù‰ Ø¹Ø±Ø¶ Ø³Ø¹Ø± Ù…Ø®ØµØµ Ø£Ùˆ Ø§Ø³ØªÙØ³Ø§Ø± Ø¹Ù† Ø£ÙŠ Ø®Ø¯Ù…Ø©.</li>
+          </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+          <a class="btn primary" href="contact.html#form" data-key="requestQuote" style="padding: 1.2rem 2.4rem; font-size: 1.1rem;">Ø§Ø·Ù„Ø¨ Ø¹Ø±Ø¶ Ø³Ø¹Ø± Ù…Ø®ØµØµ</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="margin-bottom:.5rem">
+            <img src="assets/img/logo.svg.png" alt="Ø´Ø¹Ø§Ø± Loft Groomer" />
+            <div class="name">
+              <strong>Loft Groomer</strong>
+              <span data-key="tagline">ÙÙ†Ø¯Ù‚ ÙˆØ±Ø¹Ø§ÙŠØ© Ù„Ù„ÙƒÙ„Ø§Ø¨</span>
+            </div>
+          </div>
+          <p class="small" data-key="disclaimer">Ù…ÙˆÙ‚Ø¹ ØªØ¹Ø±ÙŠÙÙŠ ØªØ¬Ø±ÙŠØ¨ÙŠ â€” Ø§Ø±Ø¨Ø· Ù†Ù…ÙˆØ°Ø¬ Ø§Ù„Ø­Ø¬Ø² Ø¨Ù†Ø¸Ø§Ù…Ùƒ (WhatsApp/Email/CRM) Ø£Ùˆ Ø¨Ø®Ø§Ø¯Ù… Backend Ù„Ø§Ø­Ù‚Ø§Ù‹.</p>
+        </div>
+        <div>
+          <strong data-key="quickLinks">Ø±ÙˆØ§Ø¨Ø· Ø³Ø±ÙŠØ¹Ø©</strong>
+          <div style="margin-top:.6rem; display:grid; gap:.5rem">
+            <a href="index.html" data-key="home">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+            <a href="services.html" data-key="services">Ø§Ù„Ù…Ø±Ø§ÙÙ‚ ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª</a>
+            <a href="packages.html" data-key="packages">Ø§Ù„Ø­Ø²Ù…</a>
+            <a href="story.html" data-key="story">Ø§Ù„Ù‚ØµØ©</a>
+          </div>
+        </div>
+        <div>
+          <strong data-key="info">Ù…Ø¹Ù„ÙˆÙ…Ø§Øª</strong>
+          <p class="small" style="margin-top:.6rem" data-key="businessHours">Ø³Ø§Ø¹Ø§Øª Ø±Ø¹Ø§ÙŠØ©: ÙŠÙˆÙ…ÙŠØ§Ù‹</p>
+          <p class="small" data-key="vetSupport">Ø§Ù„Ø¯Ø¹Ù… Ø§Ù„Ø¨ÙŠØ·Ø±ÙŠ: 24/7</p>
+          <p class="small" data-key="copyright">Â© 2026 Loft Groomer</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/language-switcher-v5.js"></script>
+  <script src="assets/js/main.js"></script>
+  <!-- Session Management & Authentication -->
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>
+

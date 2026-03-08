@@ -1,0 +1,1063 @@
+/**
+ * ====================================================================
+ * language-switcher-v5.js - نظام الترجمة الثنائي اللغة
+ * ====================================================================
+ * 
+ * الغرض:
+ * هذا الملف مسؤول عن تبديل اللغة بين العربية والإنجليزية على الموقع بشكل فوري
+ * 
+ * الآلية:
+ * 1. يتحقق من اللغة المحفوظة في localStorage
+ * 2. يجد جميع العناصر التي تحتوي على data-key
+ * 3. يستبدل النص بالترجمة المناسبة
+ * 4. يحفظ اختيار المستخدم
+ * 
+ * الدوال الرئيسية:
+ * - initLanguageSwitcher(): إعداد النظام وربط الأحداث
+ * - applyLanguage(lang): تطبيق اللغة المختارة على جميع العناصر
+ * 
+ * key concepts:
+ * - data-key: معرِّف نص يربطه بمفتاح الترجمة
+ * - localStorage: يحفظ التفضيل في المتصفح
+ * - RTL/LTR: تبديل اتجاه النص (عربي = يمين، إنجليزي = يسار)
+ * ====================================================================
+ */
+
+// تشغيل نظام الترجمة
+console.log('[LS] Starting Language Switcher V5');
+
+// مفتاح التخزين في localStorage
+const STORAGE_KEY = 'user-lang';
+let isTranslationsLoaded = false;
+
+/**
+ * كائن الترجمات
+ * البنية: { ar: { key: "النص العربي", ... }, en: { key: "English text", ... } }
+ * كل عنصر في الصفحة له data-key يطابق أحد هذه المفاتيح
+ */
+// ترجمات مدمجة مباشرة (بدون fetch)
+const translations = {
+  "ar": {
+    "skipLink": "تخطي إلى المحتوى",
+    "navigation": "التنقل الرئيسي",
+    "home": "الرئيسية",
+    "services": "المرافق والخدمات",
+    "packages": "الحزم",
+    "contact": "الحجز/التواصل",
+    "bookNow": "احجز الآن",
+    "menuLabel": "فتح القائمة",
+    "tagline": "فندق ورعاية للكلاب",
+    "kicker": "حجز أسرع • متابعة يومية • بيئة آمنة",
+    "heroTitle": "فندق ورعاية للكلاب — إقامة مريحة وخدمات متكاملة",
+    "heroDesc": "هدفنا زيادة الطلب على خدمات الإقامة والرعاية عبر موقع عربي واضح وسهل الاستخدام على الهاتف والكمبيوتر. اختر الحزمة المناسبة، وارسِل طلب الحجز خلال دقائق.",
+    "browsePackages": "استعرض الحزم",
+    "viewServices": "المرافق والخدمات",
+    "contactUs": "تواصل معنا",
+    "badge1": "غرف نظيفة ومريحة",
+    "badge2": "مراعي خارجية آمنة",
+    "badge3": "رعاية بيطرية 24/7",
+    "badge4": "تحديثات وصور يومية",
+    "hero_img_alt": "كلاب سعيدة داخل الفندق",
+    "hero_img_cap": "خبرة في رعاية الكلاب تضمن لك راحة البال، ولأليفك إقامة لا تُنسى",
+    "whyLoftGroomer": "لماذا Loft Groomer؟",
+    "whyDesc": "مزيج من الأمان والراحة والنظافة — مع تجربة سهلة للعميل.",
+    "roomTitle": "غرف إقامة مريحة",
+    "roomDesc": "غرف نظيفة ومريحة (مزدوجة/مفردة بحسب التوفر) مع عناية يومية.",
+    "yardTitle": "مراعي خارجية آمنة",
+    "yardDesc": "مساحات لعب وحركة في بيئة آمنة ومناسبة لاحتياجات الكلب.",
+    "vetTitle": "رعاية بيطرية 24/7",
+    "vetDesc": "خدمات رعاية بيطرية متاحة على مدار الساعة عند الحاجة.",
+    "whatYouFind": "ماذا ستجد في الموقع؟",
+    "whatFind1": "معلومات واضحة عن الشركة والخدمات.",
+    "whatFind2": "تفاصيل الحزم وأسعارها (قابلة للتعديل).",
+    "whatFind3": "نموذج تواصل/حجز لطلب المزيد من المعلومات.",
+    "whatFind4": "تصميم عصري، بسيط، ومتجاوب للهاتف وسطح المكتب.",
+    "whatFind5": "بحث سريع لتصفية الخدمات والحزم.",
+    "nextStep": "خطوة مقترحة بعد هذا النموذج",
+    "nextStepDesc": "هذا الموقع يعمل كواجهة Front-End فقط. لطلب حجوزات حقيقية: اربط النموذج بخدمة (Email/WhatsApp) أو أنشئ Back-End لتخزين الطلبات في قاعدة بيانات.",
+    "quickLinks": "روابط سريعة",
+    "info": "معلومات",
+    "businessHours": "ساعات العمل: يومياً",
+    "vetSupport": "الدعم البيطري: 24/7",
+    "copyright": "© 2026 Loft Groomer",
+    "disclaimer": "موقع تعريفي تجريبي — اربط نموذج الحجز بنظامك (WhatsApp/Email/CRM) أو بخادم Backend لاحقاً.",
+    "facilitiesTitle": "المرافق والخدمات",
+    "facilitiesDesc": "هذه قائمة بالمرافق الأساسية والخدمات المساندة لتجربة إقامة آمنة وممتعة.",
+    "searchServices": "ابحث عن خدمة أو مرفق (مثال: بيطري، مراعي، توصيل...)",
+    "askService": "اسأل عن خدمة",
+    "searchNote": "ملاحظة: اكتب كلمة وسيتم تصفية البطاقات تلقائياً.",
+    "roomsTitle": "غرف إقامة مريحة",
+    "roomsDesc": "غرف مزدوجة/مفردة (حسب التوفر)، نظيفة ومريحة، مع تبريد تحت الأرضية وتلفزيون.",
+    "deliveryTitle": "خدمة التوصيل",
+    "deliveryDesc": "خدمة توصيل \"من وإلى المكان\" لتسهيل عملية التسليم والاستلام.",
+    "outdoorTitle": "مراعي خارجية آمنة",
+    "outdoorDesc": "مساحات خارجية آمنة للحركة واللعب تحت إشراف.",
+    "vetCareTitle": "رعاية بيطرية 24/7",
+    "vetCareDesc": "خدمات رعاية بيطرية متاحة على مدار 24 ساعة.",
+    "monitoringTitle": "مراقبة الحيوانات الأليفة",
+    "monitoringDesc": "متابعة وإشراف مستمران لضمان سلامة الكلاب وراحتها.",
+    "groomingTitle": "التصفيف والاستحمام",
+    "groomingDesc": "خدمات تنظيف/استحمام وتصفيف بحسب الحاجة أو ضمن الحزمة.",
+    "playtimeTitle": "مساحة لعب خاصة",
+    "playtimeDesc": "مساحة مخصصة للعب والأنشطة لتفريغ الطاقة بشكل صحي.",
+    "indoorTitle": "حظائر/مساحات داخلية",
+    "indoorDesc": "خيارات داخلية مناسبة لأوقات الراحة أو في ظروف الطقس المختلفة.",
+    "packagesTitle": "الحزم",
+    "packagesDesc": "اختر الحزمة التي تناسب احتياج كلبك. الأسعار أدناه أمثلة ويمكن تعديلها بسهولة.",
+    "searchPackages": "ابحث عن حزمة أو ميزة (مثال: صور يومية، مشي، حمام...)",
+    "priceQuote": "اطلب عرض سعر",
+    "longStayNote": "لإقامات طويلة أو متطلبات إضافية: تواصل معنا لترتيب حزمة مخصصة.",
+    "premiumTitle": "الحزمة المميزة",
+    "premium1": "المشي (مرة/مرتين يومياً حسب الاتفاق).",
+    "premium2": "٤ أنشطة يومياً.",
+    "premium3": "مساحة لعب خاصة.",
+    "premium4": "تحديثات/صور يومية.",
+    "premium5": "مكافآت (حسب النمو المتفق عليه مع صاحب الحيوان الأليف).",
+    "classicTitle": "الحزمة الكلاسيكية",
+    "classic1": "المشي (مرة/مرتين يومياً).",
+    "classic2": "نشاط مرة/مرتين أسبوعياً.",
+    "classic3": "حظائر لعب داخلية.",
+    "classic4": "منطقة للمشروبات.",
+    "classic5": "جلسة تنظيف/تهيئة (بحسب الحاجة).",
+    "dailyTitle": "حزمة اليومي",
+    "daily1": "المشي مرتين يومياً.",
+    "daily2": "منطقة لعب خارجية.",
+    "daily3": "المحافظة على النظافة.",
+    "daily4": "حفر حفرة في الرمل (نشاط ترفيهي).",
+    "pricesTitle": "أسعار (قابلة للتعديل)",
+    "pricesNote": "ضع الأسعار الحقيقية هنا. يمكنك أيضاً إضافة خصومات للإقامات الطويلة.",
+    "tablePackage": "الحزمة",
+    "tableSuitableFor": "المناسب لـ",
+    "tablePrice": "السعر/اليوم",
+    "tableNotes": "ملاحظات",
+    "premiumFor": "أقصى رعاية + متابعة يومية",
+    "premiumNote": "تُحدد حسب حجم الكلب ومدة الإقامة",
+    "classicFor": "رعاية متوازنة",
+    "classicNote": "مناسبة للإقامات المتوسطة",
+    "dailyFor": "رعاية يوم واحد",
+    "dailyNote": "للاستضافة خلال اليوم",
+    "contactTitle": "الحجز/التواصل",
+    "contactDesc": "أرسل تفاصيلك وسنعود إليك لتأكيد التوفر والسعر. (النموذج تجريبي بدون خادم.)",
+    "contactInfo": "معلومات التواصل",
+    "phone": "الهاتف:",
+    "whatsapp": "واتساب:",
+    "address": "العنوان:",
+    "hoursLabel": "ساعات العمل:",
+    "daily": "يومياً",
+    "longStay": "لإقامات طويلة أو متطلبات خاصة (حزمة مخصصة)، يُرجى ذكر ذلك في الرسالة.",
+    "bookingForm": "نموذج طلب حجز",
+    "name": "الاسم",
+    "exampleName": "مثال: شهد",
+    "phone_input": "رقم الهاتف",
+    "examplePhone": "مثال: 07xxxxxxxx",
+    "package": "الحزمة",
+    "choose": "اختر…",
+    "premium": "المميزة",
+    "classic": "الكلاسيكية",
+    "daily_option": "اليومي",
+    "customPackage": "حزمة مخصصة",
+    "startDate": "تاريخ البداية",
+    "endDate": "تاريخ النهاية",
+    "details": "تفاصيل إضافية",
+    "detailsPlaceholder": "الحجم/العمر، أي حساسية، تفضيلات، طلب توصيل، إلخ…",
+    "noDataStore": "لن يتم تخزين البيانات حالياً لأن النموذج تجريبي. عند ربطه بخادم سيتم حفظ الطلبات.",
+    "submitBtn": "إرسال الطلب",
+    "faqTitle": "أسئلة شائعة",
+    "faq1Question": "هل يوجد توصيل؟",
+    "faq1Answer": "نعم، خدمة \"من وإلى المكان\" متاحة. اختر \"طلب توصيل\" واكتب التفاصيل في الرسالة.",
+    "faq2Question": "هل توجد متابعة يومية؟",
+    "faq2Answer": "ضمن الحزمة المميزة يتم إرسال تحديثات/صور يومية. يمكن توفير ذلك أيضاً حسب الاتفاق.",
+    "faq3Question": "ماذا عن الرعاية البيطرية؟",
+    "faq3Answer": "تتوفر رعاية بيطرية على مدار 24 ساعة للطوارئ أو الحاجة الطبية.",
+    "prices": "الأسعار",
+    "story": "القصة",
+    "faq": "الأسئلة",
+    "pricesPageTitle": "أسعارنا الشفافة والعادلة",
+    "pricesPageDesc": "جودة عالية بأسعار تنافسية. اختر الحزمة المناسبة أو اطلب عرض سعر مخصص.",
+    "pricesCardsTitle": "حزمنا الثلاث الرئيسية",
+    "pricesCardsDesc": "اختر من بين ثلاث حزم متميزة:",
+    "premiumBadge": "الأكثر شهرة",
+    "classicBadge": "الأكثر توازناً",
+    "dailyBadge": "للزيارات",
+    "pricesPremiumTitle": "الحزمة المميزة",
+    "pricesClassicTitle": "الحزمة الكلاسيكية",
+    "pricesDailyTitle": "حزمة اليوم الواحد",
+    "perDay": "/اليوم",
+    "pricesFeature1": "مشي يومي مرتين",
+    "pricesFeature2": "4 أنشطة يومية محفزة",
+    "pricesFeature3": "مساحة لعب خاصة وآمنة",
+    "pricesFeature4": "تحديثات وصور يومية",
+    "pricesFeature5": "مكافآت ومعاملة خاصة",
+    "pricesFeature6": "مشي يومي مرة واحدة",
+    "pricesFeature7": "نشاطات أسبوعية منتقاة",
+    "pricesFeature8": "حظائر لعب داخلية آمنة",
+    "pricesFeature9": "رعاية يومية شاملة",
+    "pricesFeature10": "جلسة تصفيف أسبوعية",
+    "pricesFeature11": "مشي يومي بسيط",
+    "pricesFeature12": "مساحة لعب خارجية",
+    "pricesFeature13": "رعاية أساسية وإشراف",
+    "pricesFeature14": "نشاط ترفيهي واحد",
+    "pricesFeature15": "تقرير نهاية اليوم",
+    "discountsTitle": "عروض وخصومات خاصة",
+    "specialDiscounts": "خصومات الإقامات الطويلة",
+    "discount3Days": "إقامة 3-7 أيام:",
+    "discount8Days": "إقامة 8-14 يوم:",
+    "discount15Days": "إقامة 15+ يوم:",
+    "discountMultipleDogs": "حيوانات أليفة إضافية (2+):",
+    "pricingTableTitle": "جدول الأسعار المفصل",
+    "tableHighlights": "المميزات",
+    "tableMostSuitable": "الأنسب لـ",
+    "premiumForAnimals": "أصحاب الكلاب الذين يريدون أقصى رعاية",
+    "premiumHighlights": "مشي 2x + 4 أنشطة + صور يومية",
+    "premiumTableNote": "قد تختلف حسب حجم الكلب",
+    "classicForAnimals": "إقامات متوسطة الأجل مع رعاية جيدة",
+    "classicHighlights": "مشي 1x + أنشطة أسبوعية",
+    "classicTableNote": "الخيار الأكثر طلباً",
+    "dailyForAnimals": "الزيارات العابرة واليومية",
+    "dailyHighlights": "رعاية أساسية + مشي + لعب",
+    "dailyTableNote": "للاستضافة خلال اليوم",
+    "additionalServicesTitle": "خدمات إضافية",
+    "transportService": "خدمة التوصيل",
+    "transportFromTo": "من وإلى مقر الفندق",
+    "groomingService": "خدمة التصفيف والاستحمام",
+    "vetService": "استشارة بيطرية",
+    "importantNotes": "ملاحظات مهمة",
+    "note1": "جميع الأسعار أعلاه قابلة للتفاوض حسب الظروف والإقامات الطويلة.",
+    "note2": "تتوفر خصومات خاصة للعملاء الدائمين والحجوزات المجموعية.",
+    "note3": "الرعاية البيطرية الطارئة متاحة بدون تكاليف إضافية للحالات الحرجة.",
+    "note4": "يمكن تخصيص الحزم حسب احتياجات كلبك الخاصة.",
+    "note5": "تواصل معنا للحصول على عرض سعر مخصص أو استفسار عن أي خدمة.",
+    "requestQuote": "اطلب عرض سعر مخصص",
+    "storyTitle": "قصة Loft Groomer",
+    "storySubtitle": "رحلة من الفكرة إلى الواقع: كيف بدأ أحلمنا برعاية الكلاب",
+    "storyBeginning": "🌱 البداية - وجود مشكلة حقيقية",
+    "storyBegin1": "بدأت فكرة هذا الموقع كجزء من مشروع دراسي في مادة تطوير المواقع الإلكترونية ضمن برنامج BTEC. كان الهدف من المشروع تصميم موقع حقيقي يعرض خدمة مفيدة للمستخدمين، لذلك اخترت فكرة إنشاء موقع لفندق خاص برعاية الكلاب والحيوانات الأليفة.",
+    "storyBegin2": "من هنا جاءت فكرة تصميم موقع لفندق يقدم خدمات رعاية الكلاب ويعرض هذه الخدمات بطريقة واضحة وسهلة للمستخدمين.",
+    "storyDevelopment": "💻 المرحلة الثانية - التطوير والتنفيذ",
+    "storyDev1": "خلال هذا المشروع قمت بتصميم الموقع باستخدام تقنيات تطوير الويب مثل HTML و JavaScript، حيث عملت على بناء صفحات الموقع وتنظيمها بطريقة تساعد المستخدم على الوصول إلى المعلومات بسهولة.",
+    "storyDev2": "كما قمت بإضافة عدة تحسينات على الموقع مثل:",
+    "improv1": "تنظيم الصفحات بشكل منطقي وسهل التنقل",
+    "improv2": "إضافة نموذج للحجز والتواصل",
+    "improv3": "تحسين شكل التصميم ليكون الموقع واضحاً وسهل الاستخدام",
+    "improv4": "دعم اللغة العربية بشكل كامل (RTL)",
+    "improv5": "إضافة وضع ليلي/فاتح للراحة البصرية",
+    "storyGoals": "🎯 أهدافنا الأساسية",
+    "mainGoal": "نساعد أصحاب الكلاب على الاطمئنان والراحة النفسية",
+    "goalDesc": "يهدف الموقع إلى مساعدة أصحاب الكلاب على التعرف على الخدمات التي يقدمها الفندق مثل الإقامة والرعاية اليومية والاهتمام بالحيوانات الأليفة. كما يسمح الموقع للمستخدمين بالتعرف على المكان والخدمات المتوفرة قبل القيام بالحجز.",
+    "storyDesign": "🎨 التصميم والتجربة",
+    "storyDesign1": "عملت على تصميم الموقع بحيث يكون بسيطاً ومنظماً، حتى يتمكن أي مستخدم من تصفحه بسهولة سواء كان يستخدم الهاتف أو جهاز الكمبيوتر.",
+    "storyDesign2": "تم الاهتمام بـ:",
+    "designPoint1": "توزيع العناصر داخل الصفحات بطريقة متوازنة",
+    "designPoint2": "إضافة الصور والمعلومات بطريقة تساعد على الفهم السريع",
+    "designPoint3": "استخدام ألوان وخطوط راقية تعكس فخامة الخدمة",
+    "designPoint4": "إضافة رسوم متحركة بسيطة وأنيقة",
+    "designPoint5": "تحسين تجربة المستخدم على جميع الأجهزة",
+    "storyValues": "💎 قيمنا الأساسية",
+    "valuesSafety": "نضمن بيئة آمنة تماماً لحيواناتك الأليفة مع رعاية متخصصة على مدار الساعة.",
+    "valuesCare": "معاملة كل حيوان بحساسية واهتمام فردي يستحقه، لأنه جزء من عائلتك.",
+    "valuesQuality": "تقديم خدمات فاخرة بجودة عالية ومرافق حديثة توافق أعلى المعايير.",
+    "storyLearning": "📚 ما تعلمنا من هذا المشروع",
+    "storyLearn1": "هذا الموقع يمثل تجربة تعليمية مهمة، حيث ساعدني على:",
+    "learn1": "تطبيق ما تعلمته في مادة تطوير المواقع الإلكترونية بشكل عملي",
+    "learn2": "اكتساب مهارات في تصميم صفحات الويب والتخطيط المنطقي",
+    "learn3": "تنظيم المحتوى بطريقة تعزز تجربة المستخدم",
+    "learn4": "فهم احتياجات الزبائن وترجمتها إلى ميزات واقعية",
+    "learn5": "تحسين مهارات التصميم وإنشاء واجهات جذابة وسهلة الاستخدام",
+    "storyTimeline": "⏱️ رحلتنا حتى الآن",
+    "timeline1Date": "المرحلة الأولى",
+    "timeline1": "<strong>الفكرة والتخطيط:</strong> اختيار موضوع المشروع ودراسة الاحتياجات السوقية",
+    "timeline2Date": "المرحلة الثانية",
+    "timeline2": "<strong>التطوير والتصميم:</strong> بناء الصفحات الأساسية وإضافة الميزات الأساسية",
+    "timeline3Date": "المرحلة الثالثة",
+    "timeline3": "<strong>التحسين والصقل:</strong> إضافة الرسوم المتحركة وتحسين التصميم والتجربة",
+    "timeline4Date": "المرحلة الرابعة",
+    "timeline4": "<strong>التوسع والابتكار:</strong> إضافة صفحات جديدة مثل الأسعار والقصة والأسئلة التفاعلية",
+    "storyFuture": "🚀 رؤيتنا للمستقبل",
+    "storyFuture1": "هذا المشروع كان نقطة انطلاق نحو تطوير خدمات حقيقية في عالم رعاية الحيوانات الأليفة. نطمح في المستقبل إلى:",
+    "future1": "تطوير تطبيق جوال متخصص لمتابعة حيواناتك الأليفة",
+    "future2": "إضافة نظام حجوزات متقدم مع نظام دفع آمن",
+    "future3": "توسيع الخدمات لتشمل حيوانات أليفة أخرى",
+    "future4": "بناء مجتمع من محبي الكلاب ومتبادلي الخبرات",
+    "future5": "تحسين وتطوير الموقع بناءً على ملاحظات المستخدمين",
+    "readyToJoin": "هل أنت مستعد للانضمام إلى عائلة Loft Groomer؟",
+    "faqSubtitle": "إجابات شاملة على أسئلتك حول خدماتنا وآلية عملنا",
+    "allCategory": "الكل",
+    "bookingCategory": "الحجز",
+    "servicesCategory": "الخدمات",
+    "careCategory": "الرعاية",
+    "paymentCategory": "الدفع والأسعار",
+    "healthCategory": "الصحة والسلامة",
+    "generalCategory": "عام",
+    "bookingSection": "الحجز والتواصل",
+    "servicesSection": "الخدمات والمرافق",
+    "careSection": "الرعاية والأنشطة",
+    "paymentSection": "الدفع والأسعار",
+    "healthSection": "الصحة والسلامة",
+    "generalSection": "أسئلة عامة",
+    "faq1q": "كيف أقوم بالحجز؟",
+    "faq1a1": "يمكنك الحجز بسهولة من خلال الخطوات التالية:",
+    "faq1a2": "دخول صفحة 'الحجز/التواصل'",
+    "faq1a3": "ملء نموذج الحجز بمعلوماتك وبيانات كلبك",
+    "faq1a4": "اختيار الحزمة المناسبة وتاريخ الإقامة",
+    "faq1a5": "إرسال الطلب والانتظار لتأكيدنا",
+    "faq1a6": "سنتواصل معك في أسرع وقت لتأكيد التفاصيل.",
+    "faq2q": "ما هي أوقات الحجز والتسليم؟",
+    "faq2a1": "<strong>ساعات التسليم والاستلام:</strong>",
+    "faq2a2": "التسليم: من 8:00 صباحاً إلى 6:00 مساءً",
+    "faq2a3": "الاستلام: من 8:00 صباحاً إلى 6:00 مساءً",
+    "faq2a4": "حجوزات خارج الأوقات الرسمية متاحة برسم إضافي",
+    "faq2a5": "نوصي بالحجز قبل أسبوع على الأقل لضمان التوفر.",
+    "faq3q": "هل يمكنني إلغاء الحجز؟",
+    "faq3a1": "نعم، يمكنك إلغاء الحجز مع السياسة التالية:",
+    "faq3a2": "<strong>48 ساعة قبل الحجز:</strong> استرجاع كامل المبلغ",
+    "faq3a3": "<strong>24-48 ساعة:</strong> استرجاع 50% من المبلغ",
+    "faq3a4": "<strong>أقل من 24 ساعة:</strong> لا يتم استرجاع المبلغ",
+    "faq3a5": "تواصل معنا مباشرة للإلغاء عبر الهاتف أو الواتساب.",
+    "faq4q": "هل توجد خدمة توصيل؟",
+    "faq4a1": "<strong>نعم بالتأكيد!</strong> نوفر خدمة 'من وإلى مقر الفندق' بسهولة.",
+    "faq4a2": "التكلفة: 20 دينار لكل رحلة",
+    "faq4a3": "الخدمة متاحة خلال ساعات العمل الرسمية",
+    "faq4a4": "اختر 'طلب توصيل' في نموذج الحجز",
+    "faq4a5": "يمكنك أيضاً توصيل كلبك بنفسك إذا كان ذلك أسهل.",
+    "faq5q": "هل توجد خدمة تصفيف واستحمام؟",
+    "faq5a1": "<strong>نعم!</strong> نقدم جلسات تصفيف واستحمام احترافية.",
+    "faq5a2": "التكلفة: 25-40 دينار حسب حجم الكلب",
+    "faq5a3": "الجلسة تتضمن استحمام وتجفيف وتصفيف",
+    "faq5a4": "يمكن حجزها ضمن الحزمة أو بشكل منفصل",
+    "faq6q": "هل سأحصل على تحديثات يومية عن كلبي؟",
+    "faq6a1": "يعتمد ذلك على الحزمة التي تختارها:",
+    "faq6a2": "<strong>الحزمة المميزة:</strong> تحديثات وصور يومية مضمونة",
+    "faq6a3": "<strong>الحزمة الكلاسيكية:</strong> تحديثات بناءً على الطلب",
+    "faq6a4": "<strong>حزمة اليوم الواحد:</strong> تقرير نهاية اليوم",
+    "faq6a5": "يمكنك طلب تحديثات إضافية في أي وقت.",
+    "faq7q": "ما نوع الأنشطة التي يقوم بها الكلاب؟",
+    "faq7a1": "في Loft Groomer، نركز على الأنشطة الممتعة والصحية:",
+    "faq7a2": "المشي اليومي في مناطق آمنة وجميلة",
+    "faq7a3": "اللعب مع الكلاب الأخرى تحت إشراف",
+    "faq7a4": "نشاطات ذهنية وألعاب تفاعلية",
+    "faq7a5": "السباحة (حسب الموسم والرغبة)",
+    "faq7a6": "جميع الأنشطة آمنة وتحت إشراف متخصصين.",
+    "faq8q": "هل يجب أن أجلب طعام كلبي الخاص؟",
+    "faq8a1": "نعم، نوصي بقوة بجلب طعام كلبك الخاص.",
+    "faq8a2": "هذا يضمن الاستقرار الهضمي والراحة النفسية",
+    "faq8a3": "سنتابع جدول التغذية الذي تضعه",
+    "faq8a4": "الماء النظيف متاح بشكل دائم",
+    "faq8a5": "إذا نسيت الطعام، يمكننا توفير بدائل صحية",
+    "faq9q": "كم عدد الكلاب في كل غرفة؟",
+    "faq9a1": "كل كلب يحصل على مساحة خاصة به:",
+    "faq9a2": "الغرف مصممة للكلب الواحد أو اثنين كحد أقصى",
+    "faq9a3": "تربط الكلاب فقط عند الضرورة (مثل وقت الراحة)",
+    "faq9a4": "المساحات الخارجية للعب تتسع لعدة كلاب تحت إشراف",
+    "faq9a5": "نراعي شخصية وطبع كل كلب",
+    "faq10q": "كيفية الدفع وهل توجد خصومات؟",
+    "faq10a1": "<strong>طرق الدفع المتاحة:</strong>",
+    "faq10a2": "نقداً عند التسليم أو الاستلام",
+    "faq10a3": "تحويل بنكي",
+    "faq10a4": "التواصل مباشرة لترتيبات خاصة",
+    "faq10a5": "<strong>نعم، توجد خصومات:</strong>",
+    "faq10a6": "إقامات 3-7 أيام: خصم 5%",
+    "faq10a7": "إقامات 8-14 يوم: خصم 10%",
+    "faq10a8": "إقامات 15+ يوم: خصم 15%",
+    "faq10a9": "كلبان أو أكثر: خصم 10%",
+    "faq11q": "ما الفرق بين الحزم الثلاث؟",
+    "faq11a1": "<strong>الحزمة المميزة (75 د.ا/اليوم):</strong>",
+    "faq11a2": "مشي يومي مرتين",
+    "faq11a3": "4 أنشطة يومية",
+    "faq11a4": "تحديثات وصور يومية",
+    "faq11a5": "معاملة خاصة ومكافآت",
+    "faq11a6": "<strong>الحزمة الكلاسيكية (50 د.ا/اليوم):</strong>",
+    "faq11a7": "مشي يومي مرة واحدة",
+    "faq11a8": "أنشطة أسبوعية منتقاة",
+    "faq11a9": "جلسة تصفيف أسبوعية",
+    "faq11a10": "<strong>حزمة اليوم الواحد (30 د.ا/اليوم):</strong>",
+    "faq11a11": "مشي بسيط واحد",
+    "faq11a12": "لعب ورعاية أساسية",
+    "faq11a13": "تقرير نهاية اليوم",
+    "faq12q": "ما التطعيمات المطلوبة؟",
+    "faq12a1": "نطلب التطعيمات التالية لضمان سلامة جميع الكلاب:",
+    "faq12a2": "تطعيمات الأمراض المعدية (DHPP)",
+    "faq12a3": "تطعيم داء الكلب (Rabies)",
+    "faq12a4": "عدم الإصابة بالطفيليات (شهادة من الطبيب البيطري)",
+    "faq12a5": "يجب أن تكون هذه التطعيمات محدثة قبل الحجز بأسبوعين على الأقل.",
+    "faq13q": "ماذا لو مرض كلبي أثناء الإقامة؟",
+    "faq13a1": "<strong>لا تقلق! لدينا عناية طبية 24/7:</strong>",
+    "faq13a2": "نراقب الكلاب باستمرار للكشف عن أي مشاكل صحية",
+    "faq13a3": "نتواصل معك فوراً في حالة أي مشكلة",
+    "faq13a4": "خدمة بيطرية طوارئ متاحة برسم مضاف أو بدون (حالات حرجة)",
+    "faq13a5": "جميع الحالات الصحية الطارئة نتعاملها بسرعة وكفاءة",
+    "faq14q": "أين يقع فندق Loft Groomer؟",
+    "faq14a1": "<strong>عمّان، منطقة عبدون</strong>",
+    "faq14a2": "موقع استراتيجي قريب من وسط المدينة بسهولة الوصول.",
+    "faq14a3": "يمكنك التواصل معنا للحصول على التفاصيل الدقيقة والاتجاهات.",
+    "stillHaveQuestions": "لم تجد إجابة لسؤالك؟",
+    "contactUsMessage": "لا تتردد في التواصل معنا مباشرة. فريقنا جاهز للإجابة على أي استفسارات.",
+    "contactNow": "تواصل معنا الآن",
+    
+    "loginTitle": "تسجيل الدخول | Loft Groomer",
+    "loginDesc": "سجل الدخول لحسابك في Loft Groomer",
+    "loginHeading": "أهلاً بك",
+    "loginSubheading": "سجل الدخول لحسابك للمتابعة",
+    "loginInfoTitle": "💡 معلومة:",
+    "loginInfoText": "نحن نستخدم Google للتحقق الآمن من هويتك. لن نشارك بيانات حسابك مع أي جهة أخرى.",
+    "googleSignInBtn": "تسجيل الدخول باستخدام Google",
+    "or": "أو",
+    "noAccount": "ليس لديك حساب؟",
+    "signupInfo": "سيتم إنشاء حساب تلقائياً عند أول تسجيل دخول",
+    "loginFooter": "بتسجيل الدخول، أنت توافق على سياسة الخصوصية وشروط الخدمة الخاصة بنا",
+    "loginError": "حدث خطأ أثناء تسجيل الدخول. حاول مرة أخرى.",
+    "loginSuccess": "تم تسجيل الدخول بنجاح! جاري التحويل...",
+    "logout": "تسجيل الخروج"
+  },
+  "en": {
+    "skipLink": "Skip to content",
+    "navigation": "Main navigation",
+    "home": "Home",
+    "services": "Services & Facilities",
+    "packages": "Packages",
+    "contact": "Book/Contact",
+    "bookNow": "Book Now",
+    "menuLabel": "Open menu",
+    "tagline": "Dog Hotel & Care",
+    "kicker": "Faster booking • Daily updates • Safe environment",
+    "heroTitle": "Dog Hotel & Care — Comfortable Stay and Integrated Services",
+    "heroDesc": "Our goal is to increase demand for accommodation and care services through a clear and user-friendly website on mobile and desktop. Choose the right package and send your booking request in minutes.",
+    "browsePackages": "Browse Packages",
+    "viewServices": "Services & Facilities",
+    "contactUs": "Contact Us",
+    "badge1": "Clean & Comfortable Rooms",
+    "badge2": "Safe Outdoor Areas",
+    "badge3": "24/7 Veterinary Care",
+    "badge4": "Daily Updates & Photos",
+    "hero_img_alt": "Happy dogs inside the hotel",
+    "hero_img_cap": "Replace this image with a real photo of the hotel/dogs to increase trust and conversions.",
+    "whyLoftGroomer": "Why Loft Groomer?",
+    "whyDesc": "A blend of safety, comfort and cleanliness — with an easy customer experience.",
+    "roomTitle": "Comfortable Accommodation Rooms",
+    "roomDesc": "Clean and comfortable rooms (double/single depending on availability) with daily care.",
+    "yardTitle": "Safe Outdoor Areas",
+    "yardDesc": "Play and movement spaces in a safe environment suitable for your dog's needs.",
+    "vetTitle": "24/7 Veterinary Care",
+    "vetDesc": "Veterinary care services available 24 hours a day when needed.",
+    "whatYouFind": "What You'll Find on the Website",
+    "whatFind1": "Clear information about the company and services.",
+    "whatFind2": "Package details and prices (customizable).",
+    "whatFind3": "Contact/booking form to request more information.",
+    "whatFind4": "Modern, simple, and responsive design for mobile and desktop.",
+    "whatFind5": "Quick search to filter services and packages.",
+    "nextStep": "Suggested Next Steps",
+    "nextStepDesc": "This website works as a Front-End only. For real bookings: connect the form to an Email/WhatsApp service or create a Back-End to store requests in a database.",
+    "quickLinks": "Quick Links",
+    "info": "Information",
+    "businessHours": "Business Hours: Daily",
+    "vetSupport": "Veterinary Support: 24/7",
+    "copyright": "© 2026 Loft Groomer",
+    "disclaimer": "Demo website - Link the booking form to your system (WhatsApp/Email/CRM) or to a Backend server later.",
+    "facilitiesTitle": "Services & Facilities",
+    "facilitiesDesc": "Here is a list of basic facilities and supporting services for a safe and enjoyable stay experience.",
+    "searchServices": "Search for a service or facility (example: veterinary, outdoor areas, delivery...)",
+    "askService": "Ask about a service",
+    "searchNote": "Note: Type a word and the cards will be filtered automatically.",
+    "roomsTitle": "Comfortable Accommodation Rooms",
+    "roomsDesc": "Double/single rooms (depending on availability), clean and comfortable, with underfloor cooling and TV.",
+    "deliveryTitle": "Delivery Service",
+    "deliveryDesc": "Delivery service \"from and to your place\" to facilitate the delivery and pickup process.",
+    "outdoorTitle": "Safe Outdoor Areas",
+    "outdoorDesc": "Safe outdoor spaces for movement and play under supervision.",
+    "vetCareTitle": "24/7 Veterinary Care",
+    "vetCareDesc": "Veterinary care services available 24 hours a day.",
+    "monitoringTitle": "Pet Monitoring",
+    "monitoringDesc": "Continuous monitoring and supervision to ensure your dogs' safety and comfort.",
+    "groomingTitle": "Grooming & Bathing",
+    "groomingDesc": "Cleaning/bathing and grooming services as needed or included in the package.",
+    "playtimeTitle": "Special Play Area",
+    "playtimeDesc": "A designated space for games and activities to release energy in a healthy way.",
+    "indoorTitle": "Indoor Enclosures/Spaces",
+    "indoorDesc": "Indoor options suitable for rest times or in different weather conditions.",
+    "packagesTitle": "Packages",
+    "packagesDesc": "Choose the package that suits your dog's needs. The prices below are examples and can be easily modified.",
+    "searchPackages": "Search for a package or feature (example: daily photos, walks, bath...)",
+    "priceQuote": "Request a price quote",
+    "longStayNote": "For long stays or additional requirements: contact us to arrange a custom package.",
+    "premiumTitle": "Premium Package",
+    "premium1": "Walking (once or twice daily as agreed).",
+    "premium2": "4 activities daily.",
+    "premium3": "Special play area.",
+    "premium4": "Daily updates/photos.",
+    "premium5": "Treats (according to agreement with pet owner).",
+    "classicTitle": "Classic Package",
+    "classic1": "Walking (once or twice daily).",
+    "classic2": "Activity once or twice a week.",
+    "classic3": "Indoor play enclosures.",
+    "classic4": "Drink area.",
+    "classic5": "Cleaning/grooming session (as needed).",
+    "dailyTitle": "Daily Package",
+    "daily1": "Two walks daily.",
+    "daily2": "Outdoor play area.",
+    "daily3": "Cleanliness maintenance.",
+    "daily4": "Digging in sand (fun activity).",
+    "pricesTitle": "Prices (Adjustable)",
+    "pricesNote": "Put the real prices here. You can also add discounts for long stays.",
+    "tablePackage": "Package",
+    "tableSuitableFor": "Suitable For",
+    "tablePrice": "Price/Day",
+    "tableNotes": "Notes",
+    "premiumFor": "Maximum care + daily monitoring",
+    "premiumNote": "Determined based on dog size and stay duration",
+    "classicFor": "Balanced care",
+    "classicNote": "Suitable for medium stays",
+    "dailyFor": "One day care",
+    "dailyNote": "For day hosting",
+    "contactTitle": "Book/Contact",
+    "contactDesc": "Send your details and we will get back to you to confirm availability and pricing. (Form is demo with no server.)",
+    "contactInfo": "Contact Information",
+    "phone": "Phone:",
+    "whatsapp": "WhatsApp:",
+    "address": "Address:",
+    "hoursLabel": "Business Hours:",
+    "daily": "Daily",
+    "longStay": "For long stays or special requirements (custom package), please mention it in the message.",
+    "bookingForm": "Booking Request Form",
+    "name": "Name",
+    "exampleName": "Example: Sarah",
+    "phone_input": "Phone Number",
+    "examplePhone": "Example: 07xxxxxxxx",
+    "package": "Package",
+    "choose": "Choose…",
+    "premium": "Premium",
+    "classic": "Classic",
+    "daily_option": "Daily",
+    "customPackage": "Custom Package",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "details": "Additional Details",
+    "detailsPlaceholder": "Size/age, any allergies, preferences, delivery request, etc…",
+    "noDataStore": "Data will not be stored at the moment as the form is demo. When connected to a server, requests will be saved.",
+    "submitBtn": "Submit Request",
+    "faqTitle": "Frequently Asked Questions",
+    "faq1Question": "Is delivery available?",
+    "faq1Answer": "Yes, a \"from and to your place\" service is available. Select \"delivery request\" and write the details in the message.",
+    "faq2Question": "Is there daily monitoring?",
+    "faq2Answer": "Within the premium package, daily updates/photos are sent. This can also be provided by agreement.",
+    "faq3Question": "What about veterinary care?",
+    "faq3Answer": "24-hour veterinary care is available for emergencies or medical needs.",
+    "prices": "Prices",
+    "story": "Story",
+    "faq": "Questions",
+    "pricesPageTitle": "Our Transparent and Fair Prices",
+    "pricesPageDesc": "High quality at competitive prices. Choose the right package or request a custom quote.",
+    "pricesCardsTitle": "Our Three Main Packages",
+    "pricesCardsDesc": "Choose from three premium packages:",
+    "premiumBadge": "Most Popular",
+    "classicBadge": "Most Balanced",
+    "dailyBadge": "For Visits",
+    "pricesPremiumTitle": "Premium Package",
+    "pricesClassicTitle": "Classic Package",
+    "pricesDailyTitle": "One Day Package",
+    "perDay": "/day",
+    "pricesFeature1": "Two daily walks",
+    "pricesFeature2": "4 stimulating activities daily",
+    "pricesFeature3": "Special and safe play area",
+    "pricesFeature4": "Daily updates and photos",
+    "pricesFeature5": "Treats and special treatment",
+    "pricesFeature6": "One daily walk",
+    "pricesFeature7": "Selected weekly activities",
+    "pricesFeature8": "Safe indoor play enclosures",
+    "pricesFeature9": "Complete daily care",
+    "pricesFeature10": "Weekly grooming session",
+    "pricesFeature11": "Simple daily walk",
+    "pricesFeature12": "Outdoor play area",
+    "pricesFeature13": "Basic care and supervision",
+    "pricesFeature14": "One recreational activity",
+    "pricesFeature15": "End of day report",
+    "discountsTitle": "Special Offers and Discounts",
+    "specialDiscounts": "Discounts for Long Stays",
+    "discount3Days": "3-7 day stay:",
+    "discount8Days": "8-14 day stay:",
+    "discount15Days": "15+ day stay:",
+    "discountMultipleDogs": "Additional pets (2+):",
+    "pricingTableTitle": "Detailed Price Table",
+    "tableHighlights": "Highlights",
+    "tableMostSuitable": "Most Suitable For",
+    "premiumForAnimals": "Dog owners who want maximum care",
+    "premiumHighlights": "2x walk + 4 activities + daily photos",
+    "premiumTableNote": "May vary according to dog size",
+    "classicForAnimals": "Medium-term stays with good care",
+    "classicHighlights": "1x walk + weekly activities",
+    "classicTableNote": "The most requested option",
+    "dailyForAnimals": "Transient and daily visits",
+    "dailyHighlights": "Basic care + walk + play",
+    "dailyTableNote": "For day hosting",
+    "additionalServicesTitle": "Additional Services",
+    "transportService": "Delivery Service",
+    "transportFromTo": "From and to our premises",
+    "groomingService": "Grooming and Bathing Service",
+    "vetService": "Veterinary Consultation",
+    "importantNotes": "Important Notes",
+    "note1": "All prices above are negotiable depending on circumstances and long stays.",
+    "note2": "Special discounts are available for regular customers and group bookings.",
+    "note3": "Emergency veterinary care is available at no additional cost for critical cases.",
+    "note4": "Packages can be customized according to your dog's specific needs.",
+    "note5": "Contact us to get a custom quote or inquire about any service.",
+    "requestQuote": "Request a Custom Quote",
+    "storyTitle": "Loft Groomer's Story",
+    "storySubtitle": "A journey from idea to reality: How our dream to care for dogs began",
+    "storyBeginning": "🌱 The Beginning - A Real Problem Exists",
+    "storyBegin1": "This website's idea started as part of an academic project in the Web Development course within the BTEC program. The project aimed to design a real website that offers a useful service to users, so I chose to create a website for a hotel specializing in dog and pet care.",
+    "storyBegin2": "From here came the idea of designing a website for a hotel that provides dog care services and presents these services in a clear and easy way for users.",
+    "storyDevelopment": "💻 Second Phase - Development and Implementation",
+    "storyDev1": "During this project, I designed the website using web development technologies such as HTML and JavaScript, working on building and organizing the website pages in a way that helps users access information easily.",
+    "storyDev2": "I also added several improvements to the website such as:",
+    "improv1": "Organizing pages logically and easy navigation",
+    "improv2": "Adding a booking and contact form",
+    "improv3": "Improving design aesthetics to make the website clear and easy to use",
+    "improv4": "Full Arabic support (RTL)",
+    "improv5": "Adding dark/light mode for visual comfort",
+    "storyGoals": "🎯 Our Core Objectives",
+    "mainGoal": "We help dog owners find peace of mind and reassurance",
+    "goalDesc": "The website aims to help dog owners learn about the services offered by the hotel such as accommodation, daily care and pet care. It also allows users to learn about the place and available services before making a booking.",
+    "storyDesign": "🎨 Design and Experience",
+    "storyDesign1": "I designed the website to be simple and organized, so any user can browse it easily whether using a mobile device or desktop computer.",
+    "storyDesign2": "Attention was paid to:",
+    "designPoint1": "Balanced distribution of elements within pages",
+    "designPoint2": "Adding images and information in a way that promotes quick understanding",
+    "designPoint3": "Using elegant colors and fonts that reflect service luxury",
+    "designPoint4": "Adding subtle and elegant animations",
+    "designPoint5": "Improving user experience on all devices",
+    "storyValues": "💎 Our Core Values",
+    "valuesSafety": "We ensure a completely safe environment for your pets with specialized care 24/7.",
+    "valuesCare": "Treating each pet with sensitivity and individual attention it deserves, because it's part of your family.",
+    "valuesQuality": "Providing luxury services with high quality and modern facilities that meet the highest standards.",
+    "storyLearning": "📚 What We Learned From This Project",
+    "storyLearn1": "This website represents an important educational experience, where it helped me:",
+    "learn1": "Apply what I learned in Web Development practically",
+    "learn2": "Acquire skills in designing web pages and logical planning",
+    "learn3": "Organizing content in a way that enhances user experience",
+    "learn4": "Understanding customer needs and translating them into realistic features",
+    "learn5": "Improving design skills and creating attractive and easy-to-use interfaces",
+    "storyTimeline": "⏱️ Our Journey So Far",
+    "timeline1Date": "First Phase",
+    "timeline1": "<strong>Idea and Planning:</strong> Choosing project topic and studying market needs",
+    "timeline2Date": "Second Phase",
+    "timeline2": "<strong>Development and Design:</strong> Building basic pages and adding basic features",
+    "timeline3Date": "Third Phase",
+    "timeline3": "<strong>Improvement and Polish:</strong> Adding animations and improving design and experience",
+    "timeline4Date": "Fourth Phase",
+    "timeline4": "<strong>Expansion and Innovation:</strong> Adding new pages like prices, story, and interactive questions",
+    "storyFuture": "🚀 Our Vision for the Future",
+    "storyFuture1": "This project was a launching point towards developing real services in the world of pet care. We aspire in the future to:",
+    "future1": "Develop a specialized mobile app to monitor your pets",
+    "future2": "Add an advanced booking system with secure payment",
+    "future3": "Expand services to include other pets",
+    "future4": "Build a community of dog lovers sharing experiences",
+    "future5": "Improve and develop the website based on user feedback",
+    "readyToJoin": "Ready to join the Loft Groomer family?",
+    "faqSubtitle": "Comprehensive answers to your questions about our services and how we work",
+    "allCategory": "All",
+    "bookingCategory": "Booking",
+    "servicesCategory": "Services",
+    "careCategory": "Care",
+    "paymentCategory": "Payment & Prices",
+    "healthCategory": "Health & Safety",
+    "generalCategory": "General",
+    "bookingSection": "Booking & Contact",
+    "servicesSection": "Services & Facilities",
+    "careSection": "Care & Activities",
+    "paymentSection": "Payment & Prices",
+    "healthSection": "Health & Safety",
+    "generalSection": "General Questions",
+    "faq1q": "How do I make a booking?",
+    "faq1a1": "You can easily book through the following steps:",
+    "faq1a2": "Go to the \"Book/Contact\" page",
+    "faq1a3": "Fill in the booking form with your information and your dog's details",
+    "faq1a4": "Choose the appropriate package and accommodation date",
+    "faq1a5": "Send the request and wait for our confirmation",
+    "faq1a6": "We will contact you as soon as possible to confirm the details.",
+    "faq2q": "What are the booking and delivery times?",
+    "faq2a1": "<strong>Drop-off and Pick-up Hours:</strong>",
+    "faq2a2": "Drop-off: 8:00 AM to 6:00 PM",
+    "faq2a3": "Pick-up: 8:00 AM to 6:00 PM",
+    "faq2a4": "Bookings outside official hours available with additional fee",
+    "faq2a5": "We recommend booking at least a week in advance to ensure availability.",
+    "faq3q": "Can I cancel my booking?",
+    "faq3a1": "Yes, you can cancel the booking with the following policy:",
+    "faq3a2": "<strong>48 hours before booking:</strong> Full refund",
+    "faq3a3": "<strong>24-48 hours:</strong> 50% refund",
+    "faq3a4": "<strong>Less than 24 hours:</strong> No refund",
+    "faq3a5": "Contact us directly to cancel via phone or WhatsApp.",
+    "faq4q": "Is delivery service available?",
+    "faq4a1": "<strong>Yes, absolutely!</strong> We provide easy \"from and to our premises\" service.",
+    "faq4a2": "Cost: 20 dinars per trip",
+    "faq4a3": "Service available during official business hours",
+    "faq4a4": "Select \"delivery request\" in the booking form",
+    "faq4a5": "You can also deliver your dog yourself if that's easier.",
+    "faq5q": "Is grooming and bathing service available?",
+    "faq5a1": "<strong>Yes!</strong> We provide professional grooming and bathing sessions.",
+    "faq5a2": "Cost: 25-40 dinars depending on dog size",
+    "faq5a3": "Session includes bathing, drying and grooming",
+    "faq5a4": "Can be booked as part of package or separately",
+    "faq6q": "Will I get daily updates about my dog?",
+    "faq6a1": "It depends on which package you choose:",
+    "faq6a2": "<strong>Premium Package:</strong> Daily updates and photos guaranteed",
+    "faq6a3": "<strong>Classic Package:</strong> Updates based on request",
+    "faq6a4": "<strong>One Day Package:</strong> End of day report",
+    "faq6a5": "You can request additional updates anytime.",
+    "faq7q": "What kind of activities do dogs do?",
+    "faq7a1": "At Loft Groomer, we focus on fun and healthy activities:",
+    "faq7a2": "Daily walks in safe and beautiful areas",
+    "faq7a3": "Playing with other dogs under supervision",
+    "faq7a4": "Mental and interactive game activities",
+    "faq7a5": "Swimming (depending on season and preference)",
+    "faq7a6": "All activities are safe and supervised by specialists.",
+    "faq8q": "Should I bring my dog's own food?",
+    "faq8a1": "Yes, we strongly recommend bringing your dog's own food.",
+    "faq8a2": "This ensures digestive stability and peace of mind",
+    "faq8a3": "We will follow the nutrition schedule you set",
+    "faq8a4": "Clean water is available at all times",
+    "faq8a5": "If you forget the food, we can provide healthy alternatives",
+    "faq9q": "How many dogs are in each room?",
+    "faq9a1": "Each dog gets its own special space:",
+    "faq9a2": "Rooms are designed for one or two dogs maximum",
+    "faq9a3": "Dogs are tied only when necessary (like rest time)",
+    "faq9a4": "Outdoor play areas accommodate multiple dogs under supervision",
+    "faq9a5": "We respect each dog's personality and temperament",
+    "faq10q": "Payment methods and are there discounts?",
+    "faq10a1": "<strong>Available Payment Methods:</strong>",
+    "faq10a2": "Cash on delivery or pickup",
+    "faq10a3": "Bank transfer",
+    "faq10a4": "Contact directly for special arrangements",
+    "faq10a5": "<strong>Yes, there are discounts:</strong>",
+    "faq10a6": "3-7 day stays: 5% discount",
+    "faq10a7": "8-14 day stays: 10% discount",
+    "faq10a8": "15+ day stays: 15% discount",
+    "faq10a9": "Two or more pets: 10% discount",
+    "faq11q": "What's the difference between the three packages?",
+    "faq11a1": "<strong>Premium Package (75 JOD/day):</strong>",
+    "faq11a2": "Two daily walks",
+    "faq11a3": "4 daily activities",
+    "faq11a4": "Daily updates and photos",
+    "faq11a5": "Special treatment and treats",
+    "faq11a6": "<strong>Classic Package (50 JOD/day):</strong>",
+    "faq11a7": "One daily walk",
+    "faq11a8": "Selected weekly activities",
+    "faq11a9": "Weekly grooming session",
+    "faq11a10": "<strong>One Day Package (30 JOD/day):</strong>",
+    "faq11a11": "One simple walk",
+    "faq11a12": "Play and basic care",
+    "faq11a13": "End of day report",
+    "faq12q": "What vaccinations are required?",
+    "faq12a1": "We require the following vaccinations to ensure all dogs' safety:",
+    "faq12a2": "Infectious disease vaccines (DHPP)",
+    "faq12a3": "Rabies vaccination",
+    "faq12a4": "Parasite-free certificate (from veterinarian)",
+    "faq12a5": "These vaccines must be up-to-date at least two weeks before booking.",
+    "faq13q": "What if my dog gets sick during the stay?",
+    "faq13a1": "<strong>Don't worry! We have 24/7 medical care:</strong>",
+    "faq13a2": "We continuously monitor dogs for any health issues",
+    "faq13a3": "We contact you immediately if there's a problem",
+    "faq13a4": "Emergency veterinary service available with added fee or free (critical cases)",
+    "faq13a5": "All emergency health cases are handled quickly and efficiently",
+    "faq14q": "Where is Loft Groomer located?",
+    "faq14a1": "<strong>Amman, Abdoun area</strong>",
+    "faq14a2": "A strategic location close to downtown with easy access.",
+    "faq14a3": "You can contact us for precise details and directions.",
+    "stillHaveQuestions": "Still have questions?",
+    "contactUsMessage": "Don't hesitate to contact us directly. Our team is ready to answer any inquiries.",
+    "contactNow": "Contact Us Now",
+    
+    "loginTitle": "Sign In | Loft Groomer",
+    "loginDesc": "Sign in to your account at Loft Groomer",
+    "loginHeading": "Welcome",
+    "loginSubheading": "Sign in to your account to continue",
+    "loginInfoTitle": "💡 Note:",
+    "loginInfoText": "We use Google to securely verify your identity. We will not share your account data with any third party.",
+    "googleSignInBtn": "Sign in with Google",
+    "or": "Or",
+    "noAccount": "Don't have an account?",
+    "signupInfo": "An account will be created automatically on your first sign-in",
+    "loginFooter": "By signing in, you agree to our Privacy Policy and Terms of Service",
+    "loginError": "An error occurred during sign-in. Please try again.",
+    "loginSuccess": "Sign-in successful! Redirecting...",
+    "logout": "Sign Out"
+  }
+};
+
+console.log('[LS] ✅ Translations loaded (embedded)');
+console.log('[LS] Languages available:', Object.keys(translations));
+isTranslationsLoaded = true;
+
+// بدء التهيئة مباشرة
+initLanguageSwitcher();
+
+/**
+ * ====================================================================
+ * دالة initLanguageSwitcher() - إعداد نظام الترجمة
+ * ====================================================================
+ * 
+ * المسؤوليات:
+ * 1. العثور على عناصر واجهة المستخدم (زر اللغة، القائمة المنسدلة)
+ * 2. تحميل اللغة المحفوظة من localStorage
+ * 3. تطبيق اللغة الأولية على الصفحة
+ * 4. ربط أحداث الضغط على الأزرار
+ * 5. إغلاق القائمة عند الضغط خارجها
+ * 
+ * المتغيرات المستخدمة:
+ * - [data-lang-btn]: زر تبديل اللغة
+ * - [data-lang-dropdown]: القائمة المنسدلة للخيارات
+ * - [data-lang-option]: عناصر الخيارات (ar, en)
+ * - STORAGE_KEY: مفتاح حفظ اللغة في localStorage
+ * 
+ * مثال من HTML:
+ * <button data-lang-btn>العربية</button>
+ * <div data-lang-dropdown>
+ *   <button data-lang-option="ar" class="active">العربية</button>
+ *   <button data-lang-option="en">English</button>
+ * </div>
+ */
+function initLanguageSwitcher() {
+  console.log('[LS] Initializing...');
+  
+  // الحصول على عناصر واجهة المستخدم المسؤولة عن تبديل اللغة
+  const langBtn = document.querySelector('[data-lang-btn]');       // زر اللغة الرئيسي
+  const langDropdown = document.querySelector('[data-lang-dropdown]'); // القائمة المنسدلة
+  const langOptions = document.querySelectorAll('[data-lang-option]'); // خيارات اللغة (ar, en)
+  
+  console.log('[LS] Elements found:', {
+    button: !!langBtn,
+    dropdown: !!langDropdown,
+    options: langOptions.length
+  });
+  
+  if (!langBtn || !langDropdown) {
+    console.error('[LS] ❌ Required elements not found');
+    return;
+  }
+  
+  // الحصول على اللغة المحفوظة أو الافتراضية
+  const savedLang = localStorage.getItem(STORAGE_KEY) || 'ar';
+  console.log('[LS] Saved language:', savedLang);
+  
+  // تطبيق اللغة الأولية
+  applyLanguage(savedLang);
+  
+  // ربط حدث الزر
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    console.log('[LS] Button clicked');
+    langDropdown.classList.toggle('open');
+  });
+  
+  // ربط أحداث الخيارات
+  console.log('[LS] Attaching events to', langOptions.length, 'options');
+  langOptions.forEach((option, index) => {
+    const lang = option.getAttribute('data-lang-option');
+    console.log(`[LS]   Option ${index + 1}:`, lang);
+    
+    option.addEventListener('click', (e) => {
+      e.stopPropagation();
+      console.log('[LS] Option clicked:', lang);
+      
+      applyLanguage(lang);
+      langDropdown.classList.remove('open');
+      
+      // تحديث الزر النشط
+      langOptions.forEach(opt => {
+        opt.classList.toggle('active', opt.getAttribute('data-lang-option') === lang);
+      });
+    });
+  });
+  
+  // إغلاق عند الضغط خارجاً
+  document.addEventListener('click', (e) => {
+    if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+      langDropdown.classList.remove('open');
+    }
+  });
+  
+  console.log('[LS] ✅ Initialization complete');
+}
+
+/**
+ * ====================================================================
+ * دالة applyLanguage(lang) - تطبيق اللغة
+ * ====================================================================
+ * 
+ * الغرض:
+ * تحويل جميع النصوص في الصفحة إلى اللغة المختارة (عربي أو إنجليزي)
+ * 
+ * الخطوات:
+ * 1. التحقق من وجود اللغة في كائن الترجمات
+ * 2. تحديث اتجاه النص (RTL للعربية، LTR للإنجليزية)
+ * 3. حفظ اللغة في localStorage
+ * 4. البحث عن جميع العناصر ذات data-key
+ * 5. استبدال النص حسب نوع العنصر:
+ *    - INPUT/TEXTAREA: تحديث placeholder
+ *    - LABEL/BUTTON/OPTION: تحديث textContent
+ *    - العناصر الأخرى: تحديث innerHTML
+ * 6. تحديث مؤشر اللغة
+ * 
+ * المعاملات:
+ * @param {string} lang - 'ar' للعربية أو 'en' للإنجليزية
+ * 
+ * مثال:
+ * applyLanguage('ar')  // تحويل إلى عربي
+ * applyLanguage('en')  // تحويل إلى إنجليزي
+ */
+function applyLanguage(lang) {
+  console.log(`[LS] 🌐 Applying language: ${lang}`);
+  
+  // التحقق من وجود اللغة في الترجمات
+  if (!translations[lang]) {
+    console.error(`[LS] ❌ Language "${lang}" not found in translations`);
+    console.error('[LS] Available:', Object.keys(translations));
+    return;
+  }
+  
+  // تحديث HTML
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  
+  // حفظ الاختيار
+  try {
+    localStorage.setItem(STORAGE_KEY, lang);
+    console.log('[LS] ✓ Language saved to localStorage');
+  } catch (e) {
+    console.warn('[LS] ⚠️ Could not save to localStorage');
+  }
+  
+  // ترجمة العناصر
+  const langData = translations[lang];
+  // البحث عن جميع العناصر التي تحتوي على data-key
+  const elements = document.querySelectorAll('[data-key]');
+  
+  console.log(`[LS] Found ${elements.length} elements to translate`);
+  
+  // متغيرات لتتبع نجاح/فشل الترجمة
+  let successCount = 0;      // عدد العناصر المترجمة بنجاح
+  let failureCount = 0;      // عدد العناصر التي فشلت الترجمة
+  
+  /**
+   * حلقة التحديث:
+   * تمر على كل عنصر وتحدث نصه حسب نوع العنصر
+   */
+  elements.forEach((el, index) => {
+    const key = el.getAttribute('data-key');
+    const translation = langData[key];
+    
+    // إذا لم نجد ترجمة لهذا المفتاح، سجل تحذير
+    if (!translation) {
+      console.warn(`[LS] ⚠️ Missing translation for key: "${key}"`);
+      failureCount++;
+      return;
+    }
+    
+    try {
+      /**
+       * تحديث حسب نوع العنصر:
+       * 
+       * INPUT/TEXTAREA:
+       *   - تحديث placeholder (النص الباهت)
+       *   - مثال: <input placeholder="أدخل اسمك" />
+       * 
+       * LABEL/BUTTON/OPTION:
+       *   - تحديث textContent (النص المرئي)
+       *   - مثال: <button>احجز الآن</button>
+       * 
+       * عناصر أخرى (p, span, div, h1):
+       *   - تحديث innerHTML (قد يحتوي على HTML)
+       *   - مثال: <p>نص <strong>مهم</strong></p>
+       */
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        // للحقول، نحدث placeholder وليس القيمة
+        el.setAttribute('placeholder', translation);
+      } else if (el.tagName === 'LABEL') {
+        // للتسميات، نحدث النص المرئي
+        el.textContent = translation;
+      } else if (el.tagName === 'OPTION') {
+        // لخيارات القوائم، نحدث النص المرئي
+        el.textContent = translation;
+      } else if (el.tagName === 'BUTTON') {
+        // للأزرار، نحدث النص المرئي
+        el.textContent = translation;
+      } else {
+        // للعناصر الأخرى (p, div, span, h1, h2...)، استخدم innerHTML
+        // innerHTML يسمح بوجود HTML داخل النص (مثل <strong>, <br>)
+        el.innerHTML = translation;
+      }
+      
+      // زيادة عداد النجاح
+      successCount++;
+      // تسجيل أول 5 عناصر (بقية العناصر تُترجم بسكوت)
+      if (index < 5) {
+        console.log(`[LS]   ✓ "${key}" (${el.tagName})`);
+      }
+    } catch (e) {
+      // إذا حدث خطأ أثناء التحديث، سجله
+      console.error(`[LS] ❌ Error updating "${key}":`, e);
+      failureCount++;
+    }
+  });
+  
+  // طباعة النتيجة النهائية
+  console.log(`[LS] ✅ Translation complete: ${successCount} updated, ${failureCount} failed`);
+  
+  // تحديث مؤشر اللغة (الزر الذي يعرض اللغة الحالية)
+  const indicator = document.querySelector('[data-lang-indicator]');
+  if (indicator) {
+    indicator.textContent = lang === 'ar' ? 'العربية' : 'English';
+    console.log('[LS] ✓ Language indicator updated');
+  }
+}
+
+/**
+ * ====================================================================
+ * كيفية إضافة ترجمة جديدة
+ * ====================================================================
+ * 
+ * الخطوة 1: إضافة المفتاح بالترجمات
+ * 
+ * في كائن translations في الأعلى، ابحث عن القسم المناسب:
+ * 
+ * const translations = {
+ *   ar: {
+ *     // ... ترجمات أخرى ...
+ *     myNewKey: "نص عربي جديد",  // أضف هنا ✨
+ *     // ...
+ *   },
+ *   en: {
+ *     // ... ترجمات أخرى ...
+ *     myNewKey: "New English text",  // أضف هنا ✨
+ *     // ...
+ *   }
+ * }
+ * 
+ * الخطوة 2: إضافة data-key في HTML
+ * 
+ * في أي صفحة HTML، أضف data-key على العنصر:
+ * 
+ * <h1 data-key="myNewKey">النص سيتم استبداله تلقائياً</h1>
+ * 
+ * الخطوة 3: التحقق
+ * 
+ * - افتح الموقع في المتصفح
+ * - اضغط على زر تبديل اللغة
+ * - افتح Console (F12) وتحقق من عدم وجود تحذيرات
+ * - تأكد من ظهور كلا النصين (عربي وإنجليزي)
+ * 
+ * ملاحظات مهمة:
+ * 
+ * 1. اسم المفتاح (myNewKey) يجب أن يكون مختلفاً وفريداً
+ * 2. تأكد من مطابقة المفتاح بنفس الإملاء في كل من ar و en
+ * 3. إذا نسيت إضافة الترجمة في أحد اللغات، ستظهر تحذيرات في Console
+ * 4. لا تستخدم أحرف خاصة أو مسافات في أسماء المفاتيح
+ * 
+ * أمثلة على أسماء مفاتيح جيدة:
+ * ✅ heroTitle
+ * ✅ serviceDescription
+ * ✅ faq1Question
+ * ❌ hero title (مسافة)
+ * ❌ hero-title (لا تستخدم فاصلة)
+ * ❌ hero.title (لا تستخدم نقطة)
+ * 
+ * ====================================================================
+ */
