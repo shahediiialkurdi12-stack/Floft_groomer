@@ -1,126 +1,128 @@
-<!--
+﻿<!--
   ====================================================================
-  الصفحة الرئيسية - index.html
+  Ø§Ù„ØµÙØ­Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© - index.html
   ====================================================================
   
-  هذه الصفحة تحتوي على:
+  Ù‡Ø°Ù‡ Ø§Ù„ØµÙØ­Ø© ØªØ­ØªÙˆÙŠ Ø¹Ù„Ù‰:
   
-  1. Header (رأس الصفحة):
-     - الشعار واسم الشركة
-     - قائمة التنقل الرئيسية
-     - زر تبديل الوضع الليلي/الفاتح
-     - زر تبديل اللغة (عربي/إنجليزي)
-     - قائمة للهواتف (Hamburger Menu)
+  1. Header (Ø±Ø£Ø³ Ø§Ù„ØµÙØ­Ø©):
+     - Ø§Ù„Ø´Ø¹Ø§Ø± ÙˆØ§Ø³Ù… Ø§Ù„Ø´Ø±ÙƒØ©
+     - Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„ØªÙ†Ù‚Ù„ Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©
+     - Ø²Ø± ØªØ¨Ø¯ÙŠÙ„ Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ù„ÙŠÙ„ÙŠ/Ø§Ù„ÙØ§ØªØ­
+     - Ø²Ø± ØªØ¨Ø¯ÙŠÙ„ Ø§Ù„Ù„ØºØ© (Ø¹Ø±Ø¨ÙŠ/Ø¥Ù†Ø¬Ù„ÙŠØ²ÙŠ)
+     - Ù‚Ø§Ø¦Ù…Ø© Ù„Ù„Ù‡ÙˆØ§ØªÙ (Hamburger Menu)
   
-  2. Main Content (محتوى الصفحة):
-     - Hero Section: العنوان الرئيسي والصورة
-     - Why Loft Groomer: نقاط القوة والمميزات
-     - إجابات على الأسئلة الشائعة
+  2. Main Content (Ù…Ø­ØªÙˆÙ‰ Ø§Ù„ØµÙØ­Ø©):
+     - Hero Section: Ø§Ù„Ø¹Ù†ÙˆØ§Ù† Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ ÙˆØ§Ù„ØµÙˆØ±Ø©
+     - Why Loft Groomer: Ù†Ù‚Ø§Ø· Ø§Ù„Ù‚ÙˆØ© ÙˆØ§Ù„Ù…Ù…ÙŠØ²Ø§Øª
+     - Ø¥Ø¬Ø§Ø¨Ø§Øª Ø¹Ù„Ù‰ Ø§Ù„Ø£Ø³Ø¦Ù„Ø© Ø§Ù„Ø´Ø§Ø¦Ø¹Ø©
   
-  3. Footer (أسفل الصفحة):
-     - روابط سريعة
-     - معلومات الاتصال
-     - ساعات العمل
+  3. Footer (Ø£Ø³ÙÙ„ Ø§Ù„ØµÙØ­Ø©):
+     - Ø±ÙˆØ§Ø¨Ø· Ø³Ø±ÙŠØ¹Ø©
+     - Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ø§ØªØµØ§Ù„
+     - Ø³Ø§Ø¹Ø§Øª Ø§Ù„Ø¹Ù…Ù„
   
-  ملاحظات مهمة:
-  - استخدام data-key لجميع النصوص (للترجمة)
-  - استخدام aria-* لإمكانية الوصول (Accessibility)
-  - RTL (Right-to-Left) للعربية
+  Ù…Ù„Ø§Ø­Ø¸Ø§Øª Ù…Ù‡Ù…Ø©:
+  - Ø§Ø³ØªØ®Ø¯Ø§Ù… data-key Ù„Ø¬Ù…ÙŠØ¹ Ø§Ù„Ù†ØµÙˆØµ (Ù„Ù„ØªØ±Ø¬Ù…Ø©)
+  - Ø§Ø³ØªØ®Ø¯Ø§Ù… aria-* Ù„Ø¥Ù…ÙƒØ§Ù†ÙŠØ© Ø§Ù„ÙˆØµÙˆÙ„ (Accessibility)
+  - RTL (Right-to-Left) Ù„Ù„Ø¹Ø±Ø¨ÙŠØ©
   ====================================================================
 -->
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <!-- تحديد نوع المستند والترميز -->
+  <!-- ØªØ­Ø¯ÙŠØ¯ Ù†ÙˆØ¹ Ø§Ù„Ù…Ø³ØªÙ†Ø¯ ÙˆØ§Ù„ØªØ±Ù…ÙŠØ² -->
   <meta charset="utf-8" />
   
-  <!-- تحسين عرض الصفحة على الأجهزة المختلفة (Mobile Responsive) -->
+  <!-- ØªØ­Ø³ÙŠÙ† Ø¹Ø±Ø¶ Ø§Ù„ØµÙØ­Ø© Ø¹Ù„Ù‰ Ø§Ù„Ø£Ø¬Ù‡Ø²Ø© Ø§Ù„Ù…Ø®ØªÙ„ÙØ© (Mobile Responsive) -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
-  <!-- وصف الصفحة (يظهر في نتائج البحث) -->
-  <meta name="description" content="فندق كلاب فاخر مع مرافق آمنة وحزم رعاية متنوعة." />
+  <!-- ÙˆØµÙ Ø§Ù„ØµÙØ­Ø© (ÙŠØ¸Ù‡Ø± ÙÙŠ Ù†ØªØ§Ø¦Ø¬ Ø§Ù„Ø¨Ø­Ø«) -->
+  <meta name="description" content="ÙÙ†Ø¯Ù‚ ÙƒÙ„Ø§Ø¨ ÙØ§Ø®Ø± Ù…Ø¹ Ù…Ø±Ø§ÙÙ‚ Ø¢Ù…Ù†Ø© ÙˆØ­Ø²Ù… Ø±Ø¹Ø§ÙŠØ© Ù…ØªÙ†ÙˆØ¹Ø©." />
   
-  <!-- عنوان الصفحة (يظهر في تبويب المتصفح) -->
-  <title>الرئيسية | Loft Groomer</title>
+  <!-- Ø¹Ù†ÙˆØ§Ù† Ø§Ù„ØµÙØ­Ø© (ÙŠØ¸Ù‡Ø± ÙÙŠ ØªØ¨ÙˆÙŠØ¨ Ø§Ù„Ù…ØªØµÙØ­) -->
+  <title>Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© | Loft Groomer</title>
   
-  <!-- أيقونة الموقع (تظهر بجانب اسم الموقع في التبويب) -->
+  <!-- Ø£ÙŠÙ‚ÙˆÙ†Ø© Ø§Ù„Ù…ÙˆÙ‚Ø¹ (ØªØ¸Ù‡Ø± Ø¨Ø¬Ø§Ù†Ø¨ Ø§Ø³Ù… Ø§Ù„Ù…ÙˆÙ‚Ø¹ ÙÙŠ Ø§Ù„ØªØ¨ÙˆÙŠØ¨) -->
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
   
-  <!-- ربط ملف التصميم الرئيسي -->
+  <!-- Ø±Ø¨Ø· Ù…Ù„Ù Ø§Ù„ØªØµÙ…ÙŠÙ… Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ -->
   <link rel="stylesheet" href="assets/css/style.css" />
+
+  <base href="/Floft_groomer/">
 </head>
 <body>
   <!-- 
-    رابط المساعدة للقارئ الآلي (Accessibility)
-    يسمح بالانتقال المباشر للمحتوى الرئيسي
-    مهم لمن يستخدمون قارئ الشاشة
+    Ø±Ø§Ø¨Ø· Ø§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø© Ù„Ù„Ù‚Ø§Ø±Ø¦ Ø§Ù„Ø¢Ù„ÙŠ (Accessibility)
+    ÙŠØ³Ù…Ø­ Ø¨Ø§Ù„Ø§Ù†ØªÙ‚Ø§Ù„ Ø§Ù„Ù…Ø¨Ø§Ø´Ø± Ù„Ù„Ù…Ø­ØªÙˆÙ‰ Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ
+    Ù…Ù‡Ù… Ù„Ù…Ù† ÙŠØ³ØªØ®Ø¯Ù…ÙˆÙ† Ù‚Ø§Ø±Ø¦ Ø§Ù„Ø´Ø§Ø´Ø©
   -->
-  <a class="skip-link" href="#content" data-key="skipLink">تخطي إلى المحتوى</a>
+  <a class="skip-link" href="#content" data-key="skipLink">ØªØ®Ø·ÙŠ Ø¥Ù„Ù‰ Ø§Ù„Ù…Ø­ØªÙˆÙ‰</a>
 
-  <!-- رأس الصفحة (Header) -->
+  <!-- Ø±Ø£Ø³ Ø§Ù„ØµÙØ­Ø© (Header) -->
   <header>
     <div class="container">
-      <!-- شريط التنقل الرئيسي (Navigation Bar) -->
-      <nav class="nav" aria-label="التنقل الرئيسي">
-        <!-- الشعار واسم الشركة -->
+      <!-- Ø´Ø±ÙŠØ· Ø§Ù„ØªÙ†Ù‚Ù„ Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ (Navigation Bar) -->
+      <nav class="nav" aria-label="Ø§Ù„ØªÙ†Ù‚Ù„ Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ">
+        <!-- Ø§Ù„Ø´Ø¹Ø§Ø± ÙˆØ§Ø³Ù… Ø§Ù„Ø´Ø±ÙƒØ© -->
         <a class="brand" href="index.html">
-          <img src="assets/img/logo.svg.png" alt="شعار Loft Groomer" />
+          <img src="assets/img/logo.svg.png" alt="Ø´Ø¹Ø§Ø± Loft Groomer" />
           <div class="name">
             <strong>Loft Groomer</strong>
-            <!-- data-key يربط هذا النص بمفتاح الترجمة -->
-            <span data-key="tagline">فندق ورعاية للكلاب</span>
+            <!-- data-key ÙŠØ±Ø¨Ø· Ù‡Ø°Ø§ Ø§Ù„Ù†Øµ Ø¨Ù…ÙØªØ§Ø­ Ø§Ù„ØªØ±Ø¬Ù…Ø© -->
+            <span data-key="tagline">ÙÙ†Ø¯Ù‚ ÙˆØ±Ø¹Ø§ÙŠØ© Ù„Ù„ÙƒÙ„Ø§Ø¨</span>
           </div>
         </a>
 
-        <!-- روابط التنقل الرئيسية (مخفية على الهواتف) -->
+        <!-- Ø±ÙˆØ§Ø¨Ø· Ø§Ù„ØªÙ†Ù‚Ù„ Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© (Ù…Ø®ÙÙŠØ© Ø¹Ù„Ù‰ Ø§Ù„Ù‡ÙˆØ§ØªÙ) -->
         <div class="nav-links">
-          <a href="index.html" aria-current="page" data-key="home">الرئيسية</a>
-          <a href="services.html" data-key="services">المرافق والخدمات</a>
-          <a href="packages.html" data-key="packages">الحزم</a>
-          <a href="prices.html" data-key="prices">الأسعار</a>
-          <a href="story.html" data-key="story">القصة</a>
-          <a href="faq.html" data-key="faq">الأسئلة</a>
-          <a href="contact.html" data-key="contact">الحجز/التواصل</a>
+          <a href="index.html" aria-current="page" data-key="home">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+          <a href="services.html" data-key="services">Ø§Ù„Ù…Ø±Ø§ÙÙ‚ ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª</a>
+          <a href="packages.html" data-key="packages">Ø§Ù„Ø­Ø²Ù…</a>
+          <a href="prices.html" data-key="prices">Ø§Ù„Ø£Ø³Ø¹Ø§Ø±</a>
+          <a href="story.html" data-key="story">Ø§Ù„Ù‚ØµØ©</a>
+          <a href="faq.html" data-key="faq">Ø§Ù„Ø£Ø³Ø¦Ù„Ø©</a>
+          <a href="contact.html" data-key="contact">Ø§Ù„Ø­Ø¬Ø²/Ø§Ù„ØªÙˆØ§ØµÙ„</a>
         </div>
 
-        <!-- الأزرار والميزات (تبديل الوضع، اللغة، القائمة للهواتف) -->
+        <!-- Ø§Ù„Ø£Ø²Ø±Ø§Ø± ÙˆØ§Ù„Ù…ÙŠØ²Ø§Øª (ØªØ¨Ø¯ÙŠÙ„ Ø§Ù„ÙˆØ¶Ø¹ØŒ Ø§Ù„Ù„ØºØ©ØŒ Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© Ù„Ù„Ù‡ÙˆØ§ØªÙ) -->
         <div class="nav-cta">
-          <!-- زر تبديل الوضع الليلي/الفاتح -->
-          <button data-dark-mode-toggle title="تبديل الوضع الليلي/الفاتح">🌙</button>
+          <!-- Ø²Ø± ØªØ¨Ø¯ÙŠÙ„ Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ù„ÙŠÙ„ÙŠ/Ø§Ù„ÙØ§ØªØ­ -->
+          <button data-dark-mode-toggle title="ØªØ¨Ø¯ÙŠÙ„ Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ù„ÙŠÙ„ÙŠ/Ø§Ù„ÙØ§ØªØ­">ðŸŒ™</button>
           
-          <!-- منتقي اللغة -->
+          <!-- Ù…Ù†ØªÙ‚ÙŠ Ø§Ù„Ù„ØºØ© -->
           <div class="lang-switcher">
-            <button class="lang-btn" data-lang-btn title="تغيير اللغة">
-              <span data-lang-indicator>العربية</span>
+            <button class="lang-btn" data-lang-btn title="ØªØºÙŠÙŠØ± Ø§Ù„Ù„ØºØ©">
+              <span data-lang-indicator>Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</span>
             </button>
-            <!-- قائمة الخيارات (تظهر/تختفي عند الضغط) -->
+            <!-- Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø®ÙŠØ§Ø±Ø§Øª (ØªØ¸Ù‡Ø±/ØªØ®ØªÙÙŠ Ø¹Ù†Ø¯ Ø§Ù„Ø¶ØºØ·) -->
             <div class="lang-dropdown" data-lang-dropdown role="menu">
-              <button role="menuitem" data-lang-option="ar" class="active">العربية</button>
+              <button role="menuitem" data-lang-option="ar" class="active">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</button>
               <button role="menuitem" data-lang-option="en">English</button>
             </div>
           </div>
           
-          <!-- زر القائمة للهواتف (Hamburger Menu) -->
-          <button class="hamburger" data-hamburger data-key="menuLabel" aria-label="فتح القائمة" aria-expanded="false">
+          <!-- Ø²Ø± Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© Ù„Ù„Ù‡ÙˆØ§ØªÙ (Hamburger Menu) -->
+          <button class="hamburger" data-hamburger data-key="menuLabel" aria-label="ÙØªØ­ Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
         </div>
       </nav>
 
-      <!-- قائمة الهاتف المنزلقة (Mobile Drawer - مخفية افتراضياً) -->
+      <!-- Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù‡Ø§ØªÙ Ø§Ù„Ù…Ù†Ø²Ù„Ù‚Ø© (Mobile Drawer - Ù…Ø®ÙÙŠØ© Ø§ÙØªØ±Ø§Ø¶ÙŠØ§Ù‹) -->
       <div class="mobile-drawer" data-drawer>
-        <a href="index.html" data-key="home">الرئيسية</a>
-        <a href="services.html" data-key="services">المرافق والخدمات</a>
-        <a href="packages.html" data-key="packages">الحزم</a>
-        <a href="prices.html" data-key="prices">الأسعار</a>
-        <a href="story.html" data-key="story">القصة</a>
-        <a href="faq.html" data-key="faq">الأسئلة</a>
-        <a href="contact.html" data-key="contact">الحجز/التواصل</a>
+        <a href="index.html" data-key="home">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+        <a href="services.html" data-key="services">Ø§Ù„Ù…Ø±Ø§ÙÙ‚ ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª</a>
+        <a href="packages.html" data-key="packages">Ø§Ù„Ø­Ø²Ù…</a>
+        <a href="prices.html" data-key="prices">Ø§Ù„Ø£Ø³Ø¹Ø§Ø±</a>
+        <a href="story.html" data-key="story">Ø§Ù„Ù‚ØµØ©</a>
+        <a href="faq.html" data-key="faq">Ø§Ù„Ø£Ø³Ø¦Ù„Ø©</a>
+        <a href="contact.html" data-key="contact">Ø§Ù„Ø­Ø¬Ø²/Ø§Ù„ØªÙˆØ§ØµÙ„</a>
       </div>
     </div>
   </header>
 
-  <!-- المحتوى الرئيسي -->
+  <!-- Ø§Ù„Ù…Ø­ØªÙˆÙ‰ Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ -->
   <main id="content">
 
 <section class="hero">
@@ -128,29 +130,29 @@
     <div class="hero-grid">
       <div class="hero-card">
         <div class="hero-content">
-          <div class="kicker" data-key="kicker">حجز أسرع • متابعة يومية • بيئة آمنة</div>
-          <h1 data-key="heroTitle">فندق ورعاية للكلاب — إقامة مريحة وخدمات متكاملة</h1>
+          <div class="kicker" data-key="kicker">Ø­Ø¬Ø² Ø£Ø³Ø±Ø¹ â€¢ Ù…ØªØ§Ø¨Ø¹Ø© ÙŠÙˆÙ…ÙŠØ© â€¢ Ø¨ÙŠØ¦Ø© Ø¢Ù…Ù†Ø©</div>
+          <h1 data-key="heroTitle">ÙÙ†Ø¯Ù‚ ÙˆØ±Ø¹Ø§ÙŠØ© Ù„Ù„ÙƒÙ„Ø§Ø¨ â€” Ø¥Ù‚Ø§Ù…Ø© Ù…Ø±ÙŠØ­Ø© ÙˆØ®Ø¯Ù…Ø§Øª Ù…ØªÙƒØ§Ù…Ù„Ø©</h1>
           <p class="lead" data-key="heroDesc">
-            هدفنا زيادة الطلب على خدمات الإقامة والرعاية عبر موقع عربي واضح وسهل الاستخدام على الهاتف والكمبيوتر.
-            اختر الحزمة المناسبة، وارسِل طلب الحجز خلال دقائق.
+            Ù‡Ø¯ÙÙ†Ø§ Ø²ÙŠØ§Ø¯Ø© Ø§Ù„Ø·Ù„Ø¨ Ø¹Ù„Ù‰ Ø®Ø¯Ù…Ø§Øª Ø§Ù„Ø¥Ù‚Ø§Ù…Ø© ÙˆØ§Ù„Ø±Ø¹Ø§ÙŠØ© Ø¹Ø¨Ø± Ù…ÙˆÙ‚Ø¹ Ø¹Ø±Ø¨ÙŠ ÙˆØ§Ø¶Ø­ ÙˆØ³Ù‡Ù„ Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø¹Ù„Ù‰ Ø§Ù„Ù‡Ø§ØªÙ ÙˆØ§Ù„ÙƒÙ…Ø¨ÙŠÙˆØªØ±.
+            Ø§Ø®ØªØ± Ø§Ù„Ø­Ø²Ù…Ø© Ø§Ù„Ù…Ù†Ø§Ø³Ø¨Ø©ØŒ ÙˆØ§Ø±Ø³ÙÙ„ Ø·Ù„Ø¨ Ø§Ù„Ø­Ø¬Ø² Ø®Ù„Ø§Ù„ Ø¯Ù‚Ø§Ø¦Ù‚.
           </p>
           <div class="hero-actions">
-            <a class="btn primary" href="packages.html" data-key="browsePackages">استعرض الحزم</a>
-            <a class="btn" href="services.html" data-key="viewServices">المرافق والخدمات</a>
-            <a class="btn ghost" href="contact.html#form" data-key="contactUs">تواصل معنا</a>
+            <a class="btn primary" href="packages.html" data-key="browsePackages">Ø§Ø³ØªØ¹Ø±Ø¶ Ø§Ù„Ø­Ø²Ù…</a>
+            <a class="btn" href="services.html" data-key="viewServices">Ø§Ù„Ù…Ø±Ø§ÙÙ‚ ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª</a>
+            <a class="btn ghost" href="contact.html#form" data-key="contactUs">ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§</a>
           </div>
-          <div class="meta" aria-label="نقاط سريعة">
-            <div class="badge" data-key="badge1">غرف نظيفة ومريحة</div>
-            <div class="badge" data-key="badge2">مراعي خارجية آمنة</div>
-            <div class="badge" data-key="badge3">رعاية بيطرية 24/7</div>
-            <div class="badge" data-key="badge4">تحديثات وصور يومية</div>
+          <div class="meta" aria-label="Ù†Ù‚Ø§Ø· Ø³Ø±ÙŠØ¹Ø©">
+            <div class="badge" data-key="badge1">ØºØ±Ù Ù†Ø¸ÙŠÙØ© ÙˆÙ…Ø±ÙŠØ­Ø©</div>
+            <div class="badge" data-key="badge2">Ù…Ø±Ø§Ø¹ÙŠ Ø®Ø§Ø±Ø¬ÙŠØ© Ø¢Ù…Ù†Ø©</div>
+            <div class="badge" data-key="badge3">Ø±Ø¹Ø§ÙŠØ© Ø¨ÙŠØ·Ø±ÙŠØ© 24/7</div>
+            <div class="badge" data-key="badge4">ØªØ­Ø¯ÙŠØ«Ø§Øª ÙˆØµÙˆØ± ÙŠÙˆÙ…ÙŠØ©</div>
           </div>
         </div>
       </div>
 
-      <div class="hero-card hero-media" aria-label="صورة تعريفية">
-        <img src="assets/img/hero-dogs.svg.jpg" data-key-alt="hero_img_alt" alt="كلاب سعيدة داخل الفندق" />
-        <div class="cap" data-key="hero_img_cap"> خبرة في رعاية الكلاب تضمن لك راحة البال، ولأليفك إقامة لا تُنسى</div>
+      <div class="hero-card hero-media" aria-label="ØµÙˆØ±Ø© ØªØ¹Ø±ÙŠÙÙŠØ©">
+        <img src="assets/img/hero-dogs.svg.jpg" data-key-alt="hero_img_alt" alt="ÙƒÙ„Ø§Ø¨ Ø³Ø¹ÙŠØ¯Ø© Ø¯Ø§Ø®Ù„ Ø§Ù„ÙÙ†Ø¯Ù‚" />
+        <div class="cap" data-key="hero_img_cap"> Ø®Ø¨Ø±Ø© ÙÙŠ Ø±Ø¹Ø§ÙŠØ© Ø§Ù„ÙƒÙ„Ø§Ø¨ ØªØ¶Ù…Ù† Ù„Ùƒ Ø±Ø§Ø­Ø© Ø§Ù„Ø¨Ø§Ù„ØŒ ÙˆÙ„Ø£Ù„ÙŠÙÙƒ Ø¥Ù‚Ø§Ù…Ø© Ù„Ø§ ØªÙÙ†Ø³Ù‰</div>
       </div>
     </div>
   </div>
@@ -158,31 +160,31 @@
 
 <section class="section">
   <div class="container">
-    <h2 data-key="whyLoftGroomer">لماذا Loft Groomer؟</h2>
-    <p class="sub" data-key="whyDesc">مزيج من الأمان والراحة والنظافة — مع تجربة سهلة للعميل.</p>
+    <h2 data-key="whyLoftGroomer">Ù„Ù…Ø§Ø°Ø§ Loft GroomerØŸ</h2>
+    <p class="sub" data-key="whyDesc">Ù…Ø²ÙŠØ¬ Ù…Ù† Ø§Ù„Ø£Ù…Ø§Ù† ÙˆØ§Ù„Ø±Ø§Ø­Ø© ÙˆØ§Ù„Ù†Ø¸Ø§ÙØ© â€” Ù…Ø¹ ØªØ¬Ø±Ø¨Ø© Ø³Ù‡Ù„Ø© Ù„Ù„Ø¹Ù…ÙŠÙ„.</p>
 
     <div class="grid" role="list">
       <article class="card" role="listitem">
-        <img class="icon" src="assets/img/facility-room.svg.png" alt="غرف إقامة" />
+        <img class="icon" src="assets/img/facility-room.svg.png" alt="ØºØ±Ù Ø¥Ù‚Ø§Ù…Ø©" />
         <div class="pad">
-          <h3 data-key="roomTitle">غرف إقامة مريحة</h3>
-          <p data-key="roomDesc">غرف نظيفة ومريحة (مزدوجة/مفردة بحسب التوفر) مع عناية يومية.</p>
+          <h3 data-key="roomTitle">ØºØ±Ù Ø¥Ù‚Ø§Ù…Ø© Ù…Ø±ÙŠØ­Ø©</h3>
+          <p data-key="roomDesc">ØºØ±Ù Ù†Ø¸ÙŠÙØ© ÙˆÙ…Ø±ÙŠØ­Ø© (Ù…Ø²Ø¯ÙˆØ¬Ø©/Ù…ÙØ±Ø¯Ø© Ø¨Ø­Ø³Ø¨ Ø§Ù„ØªÙˆÙØ±) Ù…Ø¹ Ø¹Ù†Ø§ÙŠØ© ÙŠÙˆÙ…ÙŠØ©.</p>
         </div>
       </article>
 
       <article class="card" role="listitem">
-        <img class="icon" src="assets/img/facility-yard.svg.png" alt="مراعي خارجية" />
+        <img class="icon" src="assets/img/facility-yard.svg.png" alt="Ù…Ø±Ø§Ø¹ÙŠ Ø®Ø§Ø±Ø¬ÙŠØ©" />
         <div class="pad">
-          <h3 data-key="yardTitle">مراعي خارجية آمنة</h3>
-          <p data-key="yardDesc">مساحات لعب وحركة في بيئة آمنة ومناسبة لاحتياجات الكلب.</p>
+          <h3 data-key="yardTitle">Ù…Ø±Ø§Ø¹ÙŠ Ø®Ø§Ø±Ø¬ÙŠØ© Ø¢Ù…Ù†Ø©</h3>
+          <p data-key="yardDesc">Ù…Ø³Ø§Ø­Ø§Øª Ù„Ø¹Ø¨ ÙˆØ­Ø±ÙƒØ© ÙÙŠ Ø¨ÙŠØ¦Ø© Ø¢Ù…Ù†Ø© ÙˆÙ…Ù†Ø§Ø³Ø¨Ø© Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª Ø§Ù„ÙƒÙ„Ø¨.</p>
         </div>
       </article>
 
       <article class="card" role="listitem">
-        <img class="icon" src="assets/img/facility-vet.svg.png" alt="رعاية بيطرية" />
+        <img class="icon" src="assets/img/facility-vet.svg.png" alt="Ø±Ø¹Ø§ÙŠØ© Ø¨ÙŠØ·Ø±ÙŠØ©" />
         <div class="pad">
-          <h3 data-key="vetTitle">رعاية بيطرية 24/7</h3>
-          <p data-key="vetDesc">خدمات رعاية بيطرية متاحة على مدار الساعة عند الحاجة.</p>
+          <h3 data-key="vetTitle">Ø±Ø¹Ø§ÙŠØ© Ø¨ÙŠØ·Ø±ÙŠØ© 24/7</h3>
+          <p data-key="vetDesc">Ø®Ø¯Ù…Ø§Øª Ø±Ø¹Ø§ÙŠØ© Ø¨ÙŠØ·Ø±ÙŠØ© Ù…ØªØ§Ø­Ø© Ø¹Ù„Ù‰ Ù…Ø¯Ø§Ø± Ø§Ù„Ø³Ø§Ø¹Ø© Ø¹Ù†Ø¯ Ø§Ù„Ø­Ø§Ø¬Ø©.</p>
         </div>
       </article>
     </div>
@@ -191,19 +193,19 @@
 
     <div class="panel two-col">
       <div>
-        <h3 style="margin-top:0" data-key="whatYouFind">ماذا ستجد في الموقع؟</h3>
+        <h3 style="margin-top:0" data-key="whatYouFind">Ù…Ø§Ø°Ø§ Ø³ØªØ¬Ø¯ ÙÙŠ Ø§Ù„Ù…ÙˆÙ‚Ø¹ØŸ</h3>
         <ul class="ul">
-          <li data-key="whatFind1">معلومات واضحة عن الشركة والخدمات.</li>
-          <li data-key="whatFind2">تفاصيل الحزم وأسعارها (قابلة للتعديل).</li>
-          <li data-key="whatFind3">نموذج تواصل/حجز لطلب المزيد من المعلومات.</li>
-          <li data-key="whatFind4">تصميم عصري، بسيط، ومتجاوب للهاتف وسطح المكتب.</li>
-          <li data-key="whatFind5">بحث سريع لتصفية الخدمات والحزم.</li>
+          <li data-key="whatFind1">Ù…Ø¹Ù„ÙˆÙ…Ø§Øª ÙˆØ§Ø¶Ø­Ø© Ø¹Ù† Ø§Ù„Ø´Ø±ÙƒØ© ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª.</li>
+          <li data-key="whatFind2">ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø­Ø²Ù… ÙˆØ£Ø³Ø¹Ø§Ø±Ù‡Ø§ (Ù‚Ø§Ø¨Ù„Ø© Ù„Ù„ØªØ¹Ø¯ÙŠÙ„).</li>
+          <li data-key="whatFind3">Ù†Ù…ÙˆØ°Ø¬ ØªÙˆØ§ØµÙ„/Ø­Ø¬Ø² Ù„Ø·Ù„Ø¨ Ø§Ù„Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª.</li>
+          <li data-key="whatFind4">ØªØµÙ…ÙŠÙ… Ø¹ØµØ±ÙŠØŒ Ø¨Ø³ÙŠØ·ØŒ ÙˆÙ…ØªØ¬Ø§ÙˆØ¨ Ù„Ù„Ù‡Ø§ØªÙ ÙˆØ³Ø·Ø­ Ø§Ù„Ù…ÙƒØªØ¨.</li>
+          <li data-key="whatFind5">Ø¨Ø­Ø« Ø³Ø±ÙŠØ¹ Ù„ØªØµÙÙŠØ© Ø§Ù„Ø®Ø¯Ù…Ø§Øª ÙˆØ§Ù„Ø­Ø²Ù….</li>
         </ul>
       </div>
       <div>
-        <h3 style="margin-top:0" data-key="nextStep">خطوة مقترحة بعد هذا النموذج</h3>
+        <h3 style="margin-top:0" data-key="nextStep">Ø®Ø·ÙˆØ© Ù…Ù‚ØªØ±Ø­Ø© Ø¨Ø¹Ø¯ Ù‡Ø°Ø§ Ø§Ù„Ù†Ù…ÙˆØ°Ø¬</h3>
         <div class="notice">
-          <span data-key="nextStepDesc">هذا الموقع يعمل كواجهة Front-End فقط. لطلب حجوزات حقيقية: اربط النموذج بخدمة (Email/WhatsApp) أو أنشئ Back-End لتخزين الطلبات في قاعدة بيانات.</span>
+          <span data-key="nextStepDesc">Ù‡Ø°Ø§ Ø§Ù„Ù…ÙˆÙ‚Ø¹ ÙŠØ¹Ù…Ù„ ÙƒÙˆØ§Ø¬Ù‡Ø© Front-End ÙÙ‚Ø·. Ù„Ø·Ù„Ø¨ Ø­Ø¬ÙˆØ²Ø§Øª Ø­Ù‚ÙŠÙ‚ÙŠØ©: Ø§Ø±Ø¨Ø· Ø§Ù„Ù†Ù…ÙˆØ°Ø¬ Ø¨Ø®Ø¯Ù…Ø© (Email/WhatsApp) Ø£Ùˆ Ø£Ù†Ø´Ø¦ Back-End Ù„ØªØ®Ø²ÙŠÙ† Ø§Ù„Ø·Ù„Ø¨Ø§Øª ÙÙŠ Ù‚Ø§Ø¹Ø¯Ø© Ø¨ÙŠØ§Ù†Ø§Øª.</span>
         </div>
       </div>
     </div>
@@ -217,36 +219,36 @@
       <div class="footer-grid">
         <div>
           <div class="brand" style="margin-bottom:.5rem">
-            <img src="assets/img/logo.svg.png" alt="شعار Loft Groomer" />
+            <img src="assets/img/logo.svg.png" alt="Ø´Ø¹Ø§Ø± Loft Groomer" />
             <div class="name">
               <strong>Loft Groomer</strong>
-              <span data-key="tagline">فندق ورعاية للكلاب</span>
+              <span data-key="tagline">ÙÙ†Ø¯Ù‚ ÙˆØ±Ø¹Ø§ÙŠØ© Ù„Ù„ÙƒÙ„Ø§Ø¨</span>
             </div>
           </div>
-          <p class="small" data-key="disclaimer">موقع تعريفي تجريبي — اربط نموذج الحجز بنظامك (WhatsApp/Email/CRM) أو بخادم Backend لاحقاً.</p>
+          <p class="small" data-key="disclaimer">Ù…ÙˆÙ‚Ø¹ ØªØ¹Ø±ÙŠÙÙŠ ØªØ¬Ø±ÙŠØ¨ÙŠ â€” Ø§Ø±Ø¨Ø· Ù†Ù…ÙˆØ°Ø¬ Ø§Ù„Ø­Ø¬Ø² Ø¨Ù†Ø¸Ø§Ù…Ùƒ (WhatsApp/Email/CRM) Ø£Ùˆ Ø¨Ø®Ø§Ø¯Ù… Backend Ù„Ø§Ø­Ù‚Ø§Ù‹.</p>
         </div>
         <div>
-          <strong data-key="quickLinks">روابط سريعة</strong>
+          <strong data-key="quickLinks">Ø±ÙˆØ§Ø¨Ø· Ø³Ø±ÙŠØ¹Ø©</strong>
           <div style="margin-top:.6rem; display:grid; gap:.5rem">
-            <a href="index.html" data-key="home">الرئيسية</a>
-            <a href="services.html" data-key="services">المرافق والخدمات</a>
-            <a href="packages.html" data-key="packages">الحزم</a>
-            <a href="contact.html" data-key="contact">الحجز/التواصل</a>
+            <a href="index.html" data-key="home">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+            <a href="services.html" data-key="services">Ø§Ù„Ù…Ø±Ø§ÙÙ‚ ÙˆØ§Ù„Ø®Ø¯Ù…Ø§Øª</a>
+            <a href="packages.html" data-key="packages">Ø§Ù„Ø­Ø²Ù…</a>
+            <a href="contact.html" data-key="contact">Ø§Ù„Ø­Ø¬Ø²/Ø§Ù„ØªÙˆØ§ØµÙ„</a>
           </div>
         </div>
         <div>
-          <strong data-key="info">معلومات</strong>
-          <p class="small" style="margin-top:.6rem" data-key="businessHours">ساعات العمل: يومياً</p>
-          <p class="small" data-key="vetSupport">الدعم البيطري: 24/7</p>
-          <p class="small" data-key="copyright">© 2026 Loft Groomer</p>
+          <strong data-key="info">Ù…Ø¹Ù„ÙˆÙ…Ø§Øª</strong>
+          <p class="small" style="margin-top:.6rem" data-key="businessHours">Ø³Ø§Ø¹Ø§Øª Ø§Ù„Ø¹Ù…Ù„: ÙŠÙˆÙ…ÙŠØ§Ù‹</p>
+          <p class="small" data-key="vetSupport">Ø§Ù„Ø¯Ø¹Ù… Ø§Ù„Ø¨ÙŠØ·Ø±ÙŠ: 24/7</p>
+          <p class="small" data-key="copyright">Â© 2026 Loft Groomer</p>
         </div>
       </div>
     </div>
   </footer>
 
   <div class="toast" data-toast role="status" aria-live="polite">
-    <strong>تم إرسال طلبك</strong>
-    سنعاود التواصل معك قريباً لتأكيد التفاصيل.
+    <strong>ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø·Ù„Ø¨Ùƒ</strong>
+    Ø³Ù†Ø¹Ø§ÙˆØ¯ Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹Ùƒ Ù‚Ø±ÙŠØ¨Ø§Ù‹ Ù„ØªØ£ÙƒÙŠØ¯ Ø§Ù„ØªÙØ§ØµÙŠÙ„.
   </div>
 
   <script src="assets/js/language-switcher-v5.js"></script>
@@ -255,3 +257,4 @@
   <script src="assets/js/auth.js"></script>
 </body>
 </html>
+
